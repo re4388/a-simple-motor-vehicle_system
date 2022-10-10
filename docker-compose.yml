@@ -2,7 +2,7 @@ version: '3.8'
 
 services:
   postgres:
-    container_name: nestjs_api_postgres
+    container_name: wemo_postgres
     image: postgres:14.5
     ports:
       - ${DATABASE_PORT}:5432
@@ -13,7 +13,7 @@ services:
       POSTGRES_PASSWORD: ${DATABASE_PASSWORD}
       POSTGRES_DB: ${DATABASE_NAME}
   api:
-    container_name: nestjs_api_dev
+    container_name: wemo_api
     image: nestjs-api-dev:1.0.0
     build:
       context: .

@@ -1,6 +1,9 @@
 import { Injectable } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
 import { TypeOrmModuleOptions, TypeOrmOptionsFactory } from '@nestjs/typeorm';
+import { Examination } from '../examination/entities/examination.entity';
+import { MotorVehicleOwner } from '../motor-vehicle-owner/entities/motor-vehicle-owner.entity';
+import { MotorVehicle } from '../motor-vehicle/entities/motor-vehicle.entity';
 
 @Injectable()
 export class TypeOrmConfigService implements TypeOrmOptionsFactory {
@@ -21,8 +24,10 @@ export class TypeOrmConfigService implements TypeOrmOptionsFactory {
             dropSchema: false,
             keepConnectionAlive: true,
             logging: this.configService.get('app.nodeEnv') !== 'production',
-            entities: [__dirname + '/../**/*.entity{.ts,.js}'],
-            migrations: [__dirname + '/migrations/**/*{.ts,.js}'],
+            entities: [
+                __dirname + '/../**/*.entity{.ts,.js}'
+            ],
+            // migrations: [__dirname + '/migrations/**/*{.ts,.js}'],
             cli: {
                 entitiesDir: 'src',
                 migrationsDir: 'src/database/migrations',
@@ -58,7 +63,7 @@ export class TypeOrmConfigService implements TypeOrmOptionsFactory {
                 //     : undefined,
             },
         } as TypeOrmModuleOptions;
-        console.log(this.configService.get('database.sslEnabled'))
+        console.log(typeOrmModuleOptions)
         return typeOrmModuleOptions
     }
 }
