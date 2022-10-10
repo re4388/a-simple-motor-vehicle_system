@@ -17,7 +17,7 @@ export class Examination extends BaseEntity {
     id: string;
 
     @Column('time')
-    ExaminationDate: Date;
+    examinationDate: Date;
 
     @Column('decimal', { precision: 8 })
     mileage: number;
