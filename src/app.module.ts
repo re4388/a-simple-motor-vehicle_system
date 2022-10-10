@@ -25,6 +25,7 @@ import databaseConfig from './config/database.config';
         const dataSource = await new DataSource(options).initialize();
         return dataSource;
       },
+
     }),
     ConfigModule.forRoot(),
     MotorVehicleModule,

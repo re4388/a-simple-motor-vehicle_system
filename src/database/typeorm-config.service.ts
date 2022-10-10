@@ -11,7 +11,6 @@ export class TypeOrmConfigService implements TypeOrmOptionsFactory {
 
     createTypeOrmOptions(): TypeOrmModuleOptions {
 
-
         let typeOrmModuleOptions = {
             type: this.configService.get('database.type'),
             url: this.configService.get('database.url'),
