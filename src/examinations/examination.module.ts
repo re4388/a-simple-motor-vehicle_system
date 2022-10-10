@@ -3,7 +3,7 @@ import { ExaminationService } from './examination.service';
 import { ExaminationController } from './examination.controller';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { Examination } from './entities/examination.entity';
-import { MotorVehicle } from '../motor-vehicle/entities/motor-vehicle.entity';
+import { MotorVehicle } from '../motor-vehicles/entities/motor-vehicle.entity';
 
 @Module({
   imports: [TypeOrmModule.forFeature([Examination]), MotorVehicle],

@@ -1,9 +1,9 @@
 import { Injectable } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
 import { TypeOrmModuleOptions, TypeOrmOptionsFactory } from '@nestjs/typeorm';
-import { Examination } from '../examination/entities/examination.entity';
-import { MotorVehicleOwner } from '../motor-vehicle-owner/entities/motor-vehicle-owner.entity';
-import { MotorVehicle } from '../motor-vehicle/entities/motor-vehicle.entity';
+import { Examination } from '../examinations/entities/examination.entity';
+import { MotorVehicleOwner } from '../motor-vehicle-owners/entities/motor-vehicle-owner.entity';
+import { MotorVehicle } from '../motor-vehicles/entities/motor-vehicle.entity';
 
 @Injectable()
 export class TypeOrmConfigService implements TypeOrmOptionsFactory {

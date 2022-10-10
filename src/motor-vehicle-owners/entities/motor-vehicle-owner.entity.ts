@@ -7,7 +7,7 @@ import {
     PrimaryGeneratedColumn,
     UpdateDateColumn,
 } from 'typeorm';
-import { MotorVehicle } from '../../motor-vehicle/entities/motor-vehicle.entity';
+import { MotorVehicle } from '../../motor-vehicles/entities/motor-vehicle.entity';
 
 @Entity()
 export class MotorVehicleOwner extends BaseEntity {

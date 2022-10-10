@@ -5,9 +5,9 @@ import { DataSource } from 'typeorm';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { TypeOrmConfigService } from './database/typeorm-config.service';
-import { MotorVehicleModule } from './motor-vehicle/motor-vehicle.module';
-import { ExaminationModule } from './examination/examination.module';
-import { MotorVehicleOwnerModule } from './motor-vehicle-owner/motor-vehicle-owner.module';
+import { MotorVehicleModule } from './motor-vehicles/motor-vehicle.module';
+import { ExaminationModule } from './examinations/examination.module';
+import { MotorVehicleOwnerModule } from './motor-vehicle-owners/motor-vehicle-owner.module';
 import databaseConfig from './config/database.config';
 
 @Module({

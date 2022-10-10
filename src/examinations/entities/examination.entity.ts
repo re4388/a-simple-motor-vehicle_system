@@ -8,8 +8,8 @@ import {
     PrimaryGeneratedColumn,
     UpdateDateColumn,
 } from 'typeorm';
-import { MotorVehicleOwner } from '../../motor-vehicle-owner/entities/motor-vehicle-owner.entity';
-import { MotorVehicle } from '../../motor-vehicle/entities/motor-vehicle.entity';
+import { MotorVehicleOwner } from '../../motor-vehicle-owners/entities/motor-vehicle-owner.entity';
+import { MotorVehicle } from '../../motor-vehicles/entities/motor-vehicle.entity';
 
 @Entity()
 export class Examination extends BaseEntity {

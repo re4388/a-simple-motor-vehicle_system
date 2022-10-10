@@ -8,8 +8,8 @@ import {
     PrimaryGeneratedColumn,
     UpdateDateColumn,
 } from 'typeorm';
-import { Examination } from '../../examination/entities/examination.entity';
-import { MotorVehicleOwner } from '../../motor-vehicle-owner/entities/motor-vehicle-owner.entity';
+import { Examination } from '../../examinations/entities/examination.entity';
+import { MotorVehicleOwner } from '../../motor-vehicle-owners/entities/motor-vehicle-owner.entity';
 
 const MotorVehicleType = ['SmallLight', 'RegularLight', 'RegularHeavy', 'BigHeavy'];
 
