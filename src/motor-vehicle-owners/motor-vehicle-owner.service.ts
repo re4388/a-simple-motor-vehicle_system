@@ -9,20 +9,22 @@ import { MotorVehicleOwner } from './entities/motor-vehicle-owner.entity';
 export class MotorVehicleOwnerService {
   constructor(
     @InjectRepository(MotorVehicleOwner)
-    private repositoryMotorVehicleOwner: Repository<MotorVehicleOwner>
+    private repoOwner: Repository<MotorVehicleOwner>
   ) { }
 
+  // const resultObj = await this.motorVehicleService.create(
+  //   motorVehicleOwner,
+  // );
+
   create(createMotorVehicleOwnerDto: CreateMotorVehicleOwnerDto) {
-    return this.repositoryMotorVehicleOwner.save(
-      this.repositoryMotorVehicleOwner.create(createMotorVehicleOwnerDto),
+    return this.repoOwner.save(
+      this.repoOwner.create(createMotorVehicleOwnerDto),
     )
   }
 
-  // create(createProfileDto: CreateUserDto) {
-  //   return this.usersRepository.save(
-  //     this.usersRepository.create(createProfileDto),
-  //   );
-  // }
+  getById(id: string): Promise<MotorVehicleOwner> {
+    return this.repoOwner.findOneBy({ id });
+  }
 
   findAll() {
     return `This action returns all motorVehicleOwner`;

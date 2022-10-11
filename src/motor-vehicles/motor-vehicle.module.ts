@@ -2,15 +2,15 @@ import { Module } from '@nestjs/common';
 import { MotorVehicleService } from './motor-vehicle.service';
 import { MotorVehicleController } from './motor-vehicle.controller';
 import { TypeOrmModule } from '@nestjs/typeorm';
-import { MotorVehicleOwner } from '../motor-vehicle-owners/entities/motor-vehicle-owner.entity';
-import { Examination } from '../examinations/entities/examination.entity';
 import { MotorVehicle } from './entities/motor-vehicle.entity';
+import { MotorVehicleOwnerModule } from '../motor-vehicle-owners/motor-vehicle-owner.module';
+import { ExaminationModule } from '../examinations/examination.module';
 
 @Module({
   imports: [
     TypeOrmModule.forFeature([MotorVehicle]),
-    Examination,
-    MotorVehicleOwner],
+    ExaminationModule,
+    MotorVehicleOwnerModule],
   exports: [TypeOrmModule, MotorVehicleService],
   controllers: [MotorVehicleController],
   providers: [MotorVehicleService]

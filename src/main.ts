@@ -12,10 +12,9 @@ async function bootstrap() {
   app.enableCors();
 
   const options = new DocumentBuilder()
-    .setTitle('Buying Frenzy')
-    .setDescription('Buying Frenzy API Collection')
+    .setTitle('Wemo')
+    .setDescription('Wemo test API Collection')
     .setVersion('1.0')
-    .addTag('buying-frenzy')
     .build();
   const document = SwaggerModule.createDocument(app, options);
   SwaggerModule.setup('api', app, document);

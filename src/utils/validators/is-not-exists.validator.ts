@@ -31,10 +31,11 @@ export class IsNotExist implements ValidatorConstraintInterface {
             },
         })) as ValidationEntity;
 
+        // if the same, show error msg
         if (entity?.id === currentValue?.id) {
             return true;
         }
-
+        // o.w. passed validate
         return !entity;
     }
 }

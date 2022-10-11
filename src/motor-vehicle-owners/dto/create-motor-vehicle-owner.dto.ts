@@ -7,12 +7,18 @@ import { MotorVehicleOwner } from "../entities/motor-vehicle-owner.entity";
 
 export class CreateMotorVehicleOwnerDto {
 
-    @ApiProperty({ example: 'Ben Hu' })
+    @ApiProperty({
+        example: 'Ben Hu',
+        required: true,
+    })
     @IsNotEmpty()
     name: string;
 
 
-    @ApiProperty({ example: 'test1@example.com' })
+    @ApiProperty({
+        example: 'test1@example.com',
+        required: true,
+    })
     @Transform(({ value }) => value?.toLowerCase().trim())
     @Validate(IsNotExist, ["MotorVehicleOwner"], {
         message: 'emailAlreadyExists',
@@ -20,9 +26,15 @@ export class CreateMotorVehicleOwnerDto {
     @IsEmail()
     email: string;
 
-    @ApiProperty({ example: 'Don Man Road No.21' })
+    @ApiProperty({
+        example: 'Don Man Road No.21',
+        required: true,
+    })
     address: string;
 
-    @ApiProperty({ example: 'New Taipei City' })
+    @ApiProperty({
+        example: 'New Taipei City',
+        required: true,
+    })
     city: string;
 }

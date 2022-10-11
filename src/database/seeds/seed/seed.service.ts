@@ -7,8 +7,6 @@ import { MotorVehicle } from '../../../motor-vehicles/entities/motor-vehicle.ent
 import { MotorVehicleOwner } from '../../../motor-vehicle-owners/entities/motor-vehicle-owner.entity';
 
 
-
-
 @Injectable()
 export class SeedService {
     constructor(
@@ -32,7 +30,7 @@ export class SeedService {
         const countOwner = await this.ownerRepo.count();
 
         if (countExam !== 0 || countVehicle !== 0 || countOwner !== 0) {
-            console.log('The db is not empty, seed abort');
+            console.log('The db is not empty, initial seeding is abort');
             return
         }
 

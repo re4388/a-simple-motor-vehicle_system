@@ -15,7 +15,7 @@ export class MotorVehicleOwner extends BaseEntity {
     @Column('varchar', { length: 200 })
     name: string;
 
-    @Column({ unique: true, nullable: true })
+    @Column({ unique: true, nullable: false })
     email: string | null;
 
     @Column('varchar', { length: 200 })

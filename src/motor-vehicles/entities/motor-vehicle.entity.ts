@@ -18,7 +18,7 @@ export class MotorVehicle extends BaseEntity {
     @PrimaryGeneratedColumn('uuid')
     id: string;
 
-    @Column('varchar', { length: 7 })
+    @Column('varchar', { length: 7, unique: true, nullable: false })
     licensePlateNumber: string;
 
     @Column({ type: 'enum', enum: MotorVehicleType })
