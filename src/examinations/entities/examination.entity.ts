@@ -8,7 +8,6 @@ import {
     PrimaryGeneratedColumn,
     UpdateDateColumn,
 } from 'typeorm';
-import { MotorVehicleOwner } from '../../motor-vehicle-owners/entities/motor-vehicle-owner.entity';
 import { MotorVehicle } from '../../motor-vehicles/entities/motor-vehicle.entity';
 
 @Entity()
@@ -16,8 +15,9 @@ export class Examination extends BaseEntity {
     @PrimaryGeneratedColumn('uuid')
     id: string;
 
-    @Column('time')
+    @Column({ type: 'date' })
     examinationDate: Date;
+
 
     @Column('decimal', { precision: 8 })
     mileage: number;

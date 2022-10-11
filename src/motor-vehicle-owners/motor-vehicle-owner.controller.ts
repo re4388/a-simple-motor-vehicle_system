@@ -2,10 +2,16 @@ import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/commo
 import { MotorVehicleOwnerService } from './motor-vehicle-owner.service';
 import { CreateMotorVehicleOwnerDto } from './dto/create-motor-vehicle-owner.dto';
 import { UpdateMotorVehicleOwnerDto } from './dto/update-motor-vehicle-owner.dto';
+import { ApiTags } from '@nestjs/swagger';
 
-@Controller('motor-vehicle-owner')
+
+@ApiTags('Users')
+@Controller({
+  path: 'motor-vehicle-owner',
+  version: '1',
+})
 export class MotorVehicleOwnerController {
-  constructor(private readonly motorVehicleOwnerService: MotorVehicleOwnerService) {}
+  constructor(private readonly motorVehicleOwnerService: MotorVehicleOwnerService) { }
 
   @Post()
   create(@Body() createMotorVehicleOwnerDto: CreateMotorVehicleOwnerDto) {

@@ -30,7 +30,7 @@ export class MotorVehicle extends BaseEntity {
     @OneToMany(() => Examination, (Examination) => Examination.motorVehicle)
     examinations: Examination[];
 
-    @Column('time')
+    @Column({ type: 'date' })
     manufactureDate: Date;
 
     @CreateDateColumn({
