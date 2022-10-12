@@ -23,7 +23,7 @@ export class Examination extends BaseEntity {
     mileage: number;
 
 
-    @ManyToOne(() => MotorVehicle, (motorVehicle) => motorVehicle.examinations)
+    @ManyToOne(() => MotorVehicle, (mv) => mv.examinations)
     motorVehicle: MotorVehicle;
 
     @CreateDateColumn({

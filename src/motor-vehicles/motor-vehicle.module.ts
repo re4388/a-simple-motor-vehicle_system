@@ -9,9 +9,8 @@ import { ExaminationModule } from '../examinations/examination.module';
 @Module({
   imports: [
     TypeOrmModule.forFeature([MotorVehicle]),
-    ExaminationModule,
     MotorVehicleOwnerModule],
-  exports: [TypeOrmModule, MotorVehicleService],
+  exports: [TypeOrmModule, MotorVehicleModule],
   controllers: [MotorVehicleController],
   providers: [MotorVehicleService]
 })

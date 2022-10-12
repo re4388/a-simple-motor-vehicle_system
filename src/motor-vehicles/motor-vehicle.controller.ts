@@ -11,7 +11,7 @@ import { MotorVehicleOwnerService } from '../motor-vehicle-owners/motor-vehicle-
 export class MotorVehicleController {
   constructor(
     private readonly motorVehicleService: MotorVehicleService,
-    private readonly ownerService: MotorVehicleOwnerService
+    // private readonly ownerService: MotorVehicleOwnerService
 
   ) { }
 
@@ -23,26 +23,22 @@ export class MotorVehicleController {
   @ApiOkResponse({ description: 'If createMotorVehicle successfully! return object' })
   async create(
     @Res() res,
-    @Body() createMotorVehicleDto: CreateMotorVehicleDto) {
+    @Body() dto: CreateMotorVehicleDto) {
 
-    const ownerId = createMotorVehicleDto.motorVehicleOwnerId
-    const motorVehicleOwner = await this.ownerService.getById(ownerId);
-    if (!motorVehicleOwner) {
-      return res.status(HttpStatus.NOT_FOUND).send('motorVehicleOwner does not exist!');
+    const result = await this.motorVehicleService.create(dto);
+
+    if (result === -1) {
+      return res.status(HttpStatus.NOT_FOUND)
+        .send('motorVehicleOwner does not exist!');
     }
-
-    const resultObj = await this.motorVehicleService.create(
-      motorVehicleOwner,
-      createMotorVehicleDto
-    );
 
 
     return res.status(HttpStatus.OK).send({
-      id: resultObj.id,
-      licensePlateNumber: resultObj.licensePlateNumber,
-      motorVehicleType: resultObj.motorVehicleType,
-      motorVehicleOwnerId: resultObj.motorVehicleOwner.id,
-      manufactureDate: resultObj.manufactureDate,
+      id: result.id,
+      licensePlateNumber: result.licensePlateNumber,
+      motorVehicleType: result.motorVehicleType,
+      motorVehicleOwnerId: result.motorVehicleOwner.id,
+      manufactureDate: result.manufactureDate,
     });
   }
 

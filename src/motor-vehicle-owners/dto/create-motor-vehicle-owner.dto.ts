@@ -2,7 +2,6 @@ import { ApiProperty } from "@nestjs/swagger";
 import { Transform } from "class-transformer";
 import { IsEmail, IsNotEmpty, Validate } from "class-validator";
 import { IsNotExist } from "../../utils/validators/is-not-exists.validator";
-import { MotorVehicleOwner } from "../entities/motor-vehicle-owner.entity";
 
 
 export class CreateMotorVehicleOwnerDto {

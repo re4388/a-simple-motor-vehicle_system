@@ -1,7 +1,7 @@
 
 import { ApiProperty } from "@nestjs/swagger";
 import { Transform, Type } from "class-transformer";
-import { IsDefined, IsEmail, IsNotEmpty, IsString, Validate } from "class-validator";
+import { IsNotEmpty, IsString, Validate } from "class-validator";
 import { IsLicensePlateNumberValid } from "../../utils/validators/is-license-plate-number-valid";
 import { IsNotExist } from "../../utils/validators/is-not-exists.validator";
 import { isUUID } from "../../utils/validators/is-uuid-valid";

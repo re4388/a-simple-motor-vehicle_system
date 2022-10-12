@@ -24,6 +24,6 @@ export class MotorVehicleOwner extends BaseEntity {
     @Column('varchar', { length: 200 })
     city: string;
 
-    @OneToMany(() => MotorVehicle, (MotorVehicle) => MotorVehicle.motorVehicleOwner)
+    @OneToMany(() => MotorVehicle, (motor) => motor.motorVehicleOwner)
     motorVehicles: MotorVehicle[];
 }

@@ -1,10 +1,12 @@
 
 ## Local Development
 
-run up postgres
+run up postgres (for the first time)
 ```
 docker-compose up postgres
 ```
+
+(and run up the container if not the first time)
 
 run up api server locally
 ```

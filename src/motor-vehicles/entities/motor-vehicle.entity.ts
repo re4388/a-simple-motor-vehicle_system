@@ -24,10 +24,10 @@ export class MotorVehicle extends BaseEntity {
     @Column({ type: 'enum', enum: MotorVehicleType })
     motorVehicleType: string;
 
-    @ManyToOne(() => MotorVehicleOwner, (motorVehicleOwner) => motorVehicleOwner.motorVehicles)
+    @ManyToOne(() => MotorVehicleOwner, (owner) => owner.motorVehicles)
     motorVehicleOwner: MotorVehicleOwner;
 
-    @OneToMany(() => Examination, (Examination) => Examination.motorVehicle)
+    @OneToMany(() => Examination, (exam) => exam.motorVehicle)
     examinations: Examination[];
 
     @Column({ type: 'date' })
