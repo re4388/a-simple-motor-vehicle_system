@@ -1,8 +1,8 @@
-import { Test, TestingModule } from '@nestjs/testing';
-import { MotorVehicleOwnerController } from './motor-vehicle-owner.controller';
-import { MotorVehicleOwnerService } from './motor-vehicle-owner.service';
+import { Test, TestingModule } from "@nestjs/testing";
+import { MotorVehicleOwnerController } from "./motor-vehicle-owner.controller";
+import { MotorVehicleOwnerService } from "./motor-vehicle-owner.service";
 
-describe('MotorVehicleOwnerController', () => {
+describe("MotorVehicleOwnerController", () => {
   let controller: MotorVehicleOwnerController;
 
   beforeEach(async () => {
@@ -11,10 +11,12 @@ describe('MotorVehicleOwnerController', () => {
       providers: [MotorVehicleOwnerService],
     }).compile();
 
-    controller = module.get<MotorVehicleOwnerController>(MotorVehicleOwnerController);
+    controller = module.get<MotorVehicleOwnerController>(
+      MotorVehicleOwnerController
+    );
   });
 
-  it('should be defined', () => {
+  it("should be defined", () => {
     expect(controller).toBeDefined();
   });
 });
