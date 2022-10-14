@@ -1,16 +1,15 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete, Res, HttpStatus } from '@nestjs/common';
+import { Controller, Get, Post, Body, Patch, Param, Delete, Res, HttpStatus, HttpCode, ParseUUIDPipe } from '@nestjs/common';
 import { MotorVehicleService } from './motor-vehicle.service';
 import { CreateMotorVehicleDto } from './dto/create-motor-vehicle.dto';
 import { UpdateMotorVehicleDto } from './dto/update-motor-vehicle.dto';
 import { ApiInternalServerErrorResponse, ApiNotFoundResponse, ApiOkResponse, ApiTags } from '@nestjs/swagger';
-import { MotorVehicleOwnerService } from '../motor-vehicle-owners/motor-vehicle-owner.service';
 
 
 @ApiTags('motor-vehicle')
 @Controller('motor-vehicle')
 export class MotorVehicleController {
   constructor(
-    private readonly motorVehicleService: MotorVehicleService,
+    private readonly motorService: MotorVehicleService,
     // private readonly ownerService: MotorVehicleOwnerService
 
   ) { }
@@ -25,7 +24,7 @@ export class MotorVehicleController {
     @Res() res,
     @Body() dto: CreateMotorVehicleDto) {
 
-    const result = await this.motorVehicleService.create(dto);
+    const result = await this.motorService.create(dto);
 
     if (result === -1) {
       return res.status(HttpStatus.NOT_FOUND)
@@ -42,23 +41,42 @@ export class MotorVehicleController {
     });
   }
 
+  @Patch(':id')
+  @HttpCode(HttpStatus.OK)
+  async update(
+    @Param('id') id: string,
+    @Res() res,
+    @Body() dto: UpdateMotorVehicleDto) {
+    const result = await this.motorService.update(id, dto);
+
+    if (result === -1) {
+      return res.status(HttpStatus.FORBIDDEN)
+        .send('licensePlateNumberAlreadyExists');
+    }
+
+
+    return res.status(HttpStatus.OK).send(result)
+  }
+
+  @Get(':id')
+  @HttpCode(HttpStatus.OK)
+  findOne(
+    @Param('id', ParseUUIDPipe) id: string,
+  ) {
+    return this.motorService.findOne({ id: id });
+  }
+
+  @Delete(':id')
+  @HttpCode(HttpStatus.OK)
+  async remove(
+    @Param('id', ParseUUIDPipe) id: string,
+  ) {
+    return await this.motorService.delete(id);
+  }
+
   // @Get()
   // findAll() {
   //   return this.motorVehicleService.findAll();
   // }
 
-  // @Get(':id')
-  // findOne(@Param('id') id: string) {
-  //   return this.motorVehicleService.findOne(+id);
-  // }
-
-  // @Patch(':id')
-  // update(@Param('id') id: string, @Body() updateMotorVehicleDto: UpdateMotorVehicleDto) {
-  //   return this.motorVehicleService.update(+id, updateMotorVehicleDto);
-  // }
-
-  // @Delete(':id')
-  // remove(@Param('id') id: string) {
-  //   return this.motorVehicleService.remove(+id);
-  // }
 }

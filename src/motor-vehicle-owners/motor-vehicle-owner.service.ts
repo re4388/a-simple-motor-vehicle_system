@@ -1,6 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
+import { EntityCondition } from '../utils/types/entity-condition.type';
 import { CreateMotorVehicleOwnerDto } from './dto/create-motor-vehicle-owner.dto';
 import { UpdateMotorVehicleOwnerDto } from './dto/update-motor-vehicle-owner.dto';
 import { MotorVehicleOwner } from './entities/motor-vehicle-owner.entity';
@@ -9,36 +10,67 @@ import { MotorVehicleOwner } from './entities/motor-vehicle-owner.entity';
 export class MotorVehicleOwnerService {
   constructor(
     @InjectRepository(MotorVehicleOwner)
-    private repoOwner: Repository<MotorVehicleOwner>
+    private ownerRepo: Repository<MotorVehicleOwner>
   ) { }
 
-  // const resultObj = await this.motorVehicleService.create(
-  //   motorVehicleOwner,
-  // );
 
   create(createMotorVehicleOwnerDto: CreateMotorVehicleOwnerDto) {
-    return this.repoOwner.save(
-      this.repoOwner.create(createMotorVehicleOwnerDto),
+    return this.ownerRepo.save(
+      this.ownerRepo.create(createMotorVehicleOwnerDto),
     )
   }
 
   getById(id: string): Promise<MotorVehicleOwner> {
-    return this.repoOwner.findOneBy({ id });
+    return this.ownerRepo.findOneBy({ id });
   }
 
-  findAll() {
-    return `This action returns all motorVehicleOwner`;
+
+  async update(id: string, dto: UpdateMotorVehicleOwnerDto) {
+
+    let result = await this.ownerRepo
+      .createQueryBuilder()
+      .where('email = :newEmail')
+      .andWhere('id != :refId')
+      .setParameters({ newEmail: dto.email, refId: id })
+      .select('MotorVehicleOwner.id')
+      .getRawMany();
+
+    // console.log("result", result);
+
+    // if we have not empty result arr, meaning we have conflict
+    // (another user want to change to an mail which had been used)
+    // we need to return -1 and show error msg
+    if (result.length > 0) return -1
+
+    // and if return is null, continue to below procedure
+    return this.ownerRepo.save(
+      this.ownerRepo.create({
+        id,
+        ...dto,
+      }),
+    );
   }
 
-  findOne(id: number) {
-    return `This action returns a #${id} motorVehicleOwner`;
+
+  async findOne(fields: EntityCondition<MotorVehicleOwner>) {
+    return await this.ownerRepo.findOne({
+      where: fields,
+    });
   }
 
-  update(id: number, updateMotorVehicleOwnerDto: UpdateMotorVehicleOwnerDto) {
-    return `This action updates a #${id} motorVehicleOwner`;
+  async delete(id: string): Promise<void> {
+    await this.ownerRepo.delete(id);
   }
 
-  remove(id: number) {
-    return `This action removes a #${id} motorVehicleOwner`;
-  }
+  // findAll() {
+  //   return `This action returns all motorVehicleOwner`;
+  // }
+
+  // findOne(id: string) {
+  //   return `This action returns a #${id} motorVehicleOwner`;
+  // }
+
+
+
+
 }

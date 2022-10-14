@@ -2,6 +2,7 @@ import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { DataSource, Repository } from 'typeorm';
 import { MotorVehicle } from '../motor-vehicles/entities/motor-vehicle.entity';
+import { EntityCondition } from '../utils/types/entity-condition.type';
 import { CreateExaminationDto } from './dto/create-examination.dto';
 import { UpdateExaminationDto } from './dto/update-examination.dto';
 import { Examination } from './entities/examination.entity';
@@ -11,17 +12,13 @@ export class ExaminationService {
 
   constructor(
     private dataSource: DataSource,
-
     @InjectRepository(Examination)
     private examRepo: Repository<Examination>,
-
     @InjectRepository(MotorVehicle)
     private motorRepo: Repository<MotorVehicle>,
   ) { }
 
   async create(dto: CreateExaminationDto) {
-
-
     const motorVehicle = await this.motorRepo.findOne(
       {
         where:
@@ -30,8 +27,6 @@ export class ExaminationService {
         },
         relations: ['examinations']
       });
-
-
     if (!motorVehicle) return -1
 
     const queryRunner = this.dataSource.createQueryRunner();
@@ -39,7 +34,6 @@ export class ExaminationService {
     await queryRunner.startTransaction();
 
     let exam: Examination
-
     try {
 
       exam = this.examRepo.create({
@@ -60,22 +54,25 @@ export class ExaminationService {
 
 
     return exam;
-
   }
 
-  // findAll() {
-  //   return `This action returns all examination`;
-  // }
+  async update(id: string, dto: UpdateExaminationDto) {
+    return await this.examRepo.save(
+      this.examRepo.create({
+        id,
+        ...dto,
+      }),
+    );
+  }
 
-  // findOne(id: number) {
-  //   return `This action returns a #${id} examination`;
-  // }
+  async findOne(fields: EntityCondition<Examination>) {
+    return this.examRepo.findOne({
+      where: fields,
+    });
+  }
 
-  // update(id: number, updateExaminationDto: UpdateExaminationDto) {
-  //   return `This action updates a #${id} examination`;
-  // }
+  async delete(id: string): Promise<void> {
+    await this.examRepo.delete(id);
+  }
 
-  // remove(id: number) {
-  //   return `This action removes a #${id} examination`;
-  // }
 }

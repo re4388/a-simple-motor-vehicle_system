@@ -5,9 +5,10 @@ import { IsNotEmpty, IsString, Validate } from "class-validator";
 import { IsLicensePlateNumberValid } from "../../utils/validators/is-license-plate-number-valid";
 import { IsNotExist } from "../../utils/validators/is-not-exists.validator";
 import { isUUID } from "../../utils/validators/is-uuid-valid";
+import { isMotorVehicleTypeValid } from "../../utils/validators/is-vehicle-type-valid";
 
 
-enum MotorVehicleTypeEnum {
+export enum MotorVehicleTypeEnum {
     SmallLight = 'SmallLight',
     RegularLight = 'RegularLight',
     RegularHeavy = 'RegularHeavy',
@@ -36,11 +37,13 @@ export class CreateMotorVehicleDto {
 
     @ApiProperty({
         enum: MotorVehicleTypeEnum,
-        // add this to make this as a schema
         enumName: 'MotorVehicleTypeEnum',
         description: 'Type of Motor Vehicle',
         example: 'SmallLight',
         required: true,
+    })
+    @Validate(isMotorVehicleTypeValid, {
+        message: 'MotorVehicleTypeIsInvalid',
     })
     @IsNotEmpty({ message: 'mustBeNotEmpty' })
     motorVehicleType: MotorVehicleTypeEnum;

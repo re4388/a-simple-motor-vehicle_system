@@ -1,4 +1,4 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete, Res, HttpStatus } from '@nestjs/common';
+import { Controller, Get, Post, Body, Patch, Param, Delete, Res, HttpStatus, HttpCode, ParseUUIDPipe } from '@nestjs/common';
 import { ExaminationService } from './examination.service';
 import { CreateExaminationDto } from './dto/create-examination.dto';
 import { UpdateExaminationDto } from './dto/update-examination.dto';
@@ -40,28 +40,36 @@ export class ExaminationController {
       mileage: result.mileage,
       motorVehicleId: result.motorVehicle.id,
     });
+  }
 
+  @Patch(':id')
+  @HttpCode(HttpStatus.OK)
+  async update(
+    @Param('id') id: string,
+    @Res() res,
+    @Body() dto: UpdateExaminationDto) {
+    const result = await this.examService.update(id, dto);
+    return res.status(HttpStatus.OK).send(result)
+  }
 
+  @Get(':id')
+  @HttpCode(HttpStatus.OK)
+  async findOne(
+    @Param('id', ParseUUIDPipe) id: string,
+  ) {
+    return await this.examService.findOne({ id: id });
+  }
 
+  @Delete(':id')
+  @HttpCode(HttpStatus.OK)
+  async remove(
+    @Param('id', ParseUUIDPipe) id: string,
+  ) {
+    return await this.examService.delete(id);
   }
 
   // @Get()
   // findAll() {
   //   return this.examinationService.findAll();
-  // }
-
-  // @Get(':id')
-  // findOne(@Param('id') id: string) {
-  //   return this.examinationService.findOne(+id);
-  // }
-
-  // @Patch(':id')
-  // update(@Param('id') id: string, @Body() updateExaminationDto: UpdateExaminationDto) {
-  //   return this.examinationService.update(+id, updateExaminationDto);
-  // }
-
-  // @Delete(':id')
-  // remove(@Param('id') id: string) {
-  //   return this.examinationService.remove(+id);
   // }
 }
