@@ -20,13 +20,14 @@ import {
   ApiOkResponse,
   ApiTags,
 } from "@nestjs/swagger";
+import { Response } from 'express';
 
 @ApiTags("motor-vehicle")
 @Controller("motor-vehicle")
 export class MotorVehicleController {
   constructor(
     private readonly motorService: MotorVehicleService // private readonly ownerService: MotorVehicleOwnerService
-  ) {}
+  ) { }
 
   @Post()
   @ApiNotFoundResponse({ description: "If motorVehicleOwner not exist!" })
@@ -36,8 +37,9 @@ export class MotorVehicleController {
   @ApiOkResponse({
     description: "If createMotorVehicle successfully! return object",
   })
-  async create(@Res() res, @Body() dto: CreateMotorVehicleDto) {
+  async create(@Res() res: Response, @Body() dto: CreateMotorVehicleDto) {
     const result = await this.motorService.create(dto);
+    console.log("result", result);
 
     if (result === -1) {
       return res
@@ -58,7 +60,7 @@ export class MotorVehicleController {
   @HttpCode(HttpStatus.OK)
   async update(
     @Param("id") id: string,
-    @Res() res,
+    @Res() res: Response,
     @Body() dto: UpdateMotorVehicleDto
   ) {
     const result = await this.motorService.update(id, dto);
@@ -83,9 +85,4 @@ export class MotorVehicleController {
   async remove(@Param("id", ParseUUIDPipe) id: string) {
     return await this.motorService.delete(id);
   }
-
-  // @Get()
-  // findAll() {
-  //   return this.motorVehicleService.findAll();
-  // }
 }

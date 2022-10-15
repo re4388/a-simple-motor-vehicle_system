@@ -5,19 +5,7 @@ import { getRepositoryToken } from "@nestjs/typeorm";
 import { MotorVehicleOwner } from "../motor-vehicle-owners/entities/motor-vehicle-owner.entity";
 import { DataSource, Repository } from "typeorm";
 import { MotorVehicle } from "./entities/motor-vehicle.entity";
-import { CreateMotorVehicleDto } from "./dto/create-motor-vehicle.dto";
-import { UpdateMotorVehicleDto } from "./dto/update-motor-vehicle.dto";
-import { motorVehicleSeed0, owner, ownerSeed, vehicle } from "../../test/unittest-mock-data";
-
-
-const createMotorDto = new CreateMotorVehicleDto();
-createMotorDto.licensePlateNumber = motorVehicleSeed0.licensePlateNumber
-createMotorDto.motorVehicleType = motorVehicleSeed0.motorVehicleType
-createMotorDto.manufactureDate = motorVehicleSeed0.manufactureDate
-createMotorDto.motorVehicleOwnerId = motorVehicleSeed0.motorVehicleOwnerId
-
-const updateMotorDto = new UpdateMotorVehicleDto();
-updateMotorDto.licensePlateNumber = "QAX-123"
+import { createMotorDto, createQueryRunner, motorVehicleSeed1, owner, ownerSeed, updateMotorDto, vehicle } from "../../test/unittest-mock-data";
 
 
 describe("MotorVehicleService", () => {
@@ -63,16 +51,8 @@ describe("MotorVehicleService", () => {
   it("create motorVehicles and can found owner", async () => {
     ownerRepoMock.findOne = jest.fn().mockResolvedValue(owner)
     vehicleRepoMock.create = jest.fn().mockResolvedValueOnce(vehicle)
-    const createQueryRunner: any = {
-      connect: () => createQueryRunner,
-      startTransaction: () => createQueryRunner,
-      commitTransaction: () => createQueryRunner,
-      rollbackTransaction: () => createQueryRunner,
-      release: () => createQueryRunner,
-    };
     dataSourceMock.createQueryRunner = jest.fn()
       .mockImplementation(() => createQueryRunner)
-
 
     await service.create(createMotorDto)
 
@@ -81,20 +61,23 @@ describe("MotorVehicleService", () => {
         "relations": ["motorVehicles"],
         "where": { "id": createMotorDto.motorVehicleOwnerId }
       });
+
     expect(vehicleRepoMock.create).toBeCalledWith(
       {
-        "licensePlateNumber": motorVehicleSeed0.licensePlateNumber,
-        "manufactureDate": motorVehicleSeed0.manufactureDate,
+        "licensePlateNumber": motorVehicleSeed1.licensePlateNumber,
+        "manufactureDate": motorVehicleSeed1.manufactureDate,
         "motorVehicleOwner": owner,
-        "motorVehicleType": motorVehicleSeed0.motorVehicleType
+        "motorVehicleType": motorVehicleSeed1.motorVehicleType
       })
+
     expect(vehicleRepoMock.save).toBeCalledWith(
-      {
-        "manufactureDate": motorVehicleSeed0.manufactureDate,
+      expect.objectContaining({
+        "manufactureDate": motorVehicleSeed1.manufactureDate,
         "motorVehicleOwner": owner,
-        "motorVehicleType": motorVehicleSeed0.motorVehicleType
-      }
+        "motorVehicleType": motorVehicleSeed1.motorVehicleType
+      }),
     )
+
     expect(ownerRepoMock.save).toBeCalledWith(
       expect.objectContaining({
         "name": ownerSeed.name,
@@ -117,9 +100,15 @@ describe("MotorVehicleService", () => {
   it("update motorVehicles when no licensePlateNumber conflict", async () => {
     vehicleRepoMock.save = jest.fn()
     vehicleRepoMock.create = jest.fn()
-    await service.update("dummyUUID", updateMotorDto)
+    const dummyID = "dummyUUID"
+    await service.update(dummyID, updateMotorDto)
     expect(vehicleRepoMock.save).toBeCalled()
-    expect(vehicleRepoMock.create).toBeCalled()
+    expect(vehicleRepoMock.create).toBeCalledWith(
+      {
+        id: dummyID,
+        ...updateMotorDto
+      }
+    )
   });
 
   // TODO add this later

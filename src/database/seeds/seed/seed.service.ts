@@ -24,6 +24,7 @@ export class SeedService {
   async run() {
     const countExam = await this.examRepo.count();
     const countVehicle = await this.vehicleRepo.count();
+    console.log("countVehicle", countVehicle);
     const countOwner = await this.ownerRepo.count();
 
     if (countExam !== 0 || countVehicle !== 0 || countOwner !== 0) {
@@ -42,6 +43,7 @@ export class SeedService {
         email: "ben_hu@abc.com",
         city: "Tainan",
       });
+      console.log("Q1 motorVehicleOwner", motorVehicleOwner);
 
       await this.ownerRepo.save(motorVehicleOwner);
 

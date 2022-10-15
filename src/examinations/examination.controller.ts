@@ -20,15 +20,14 @@ import {
   ApiOkResponse,
   ApiTags,
 } from "@nestjs/swagger";
-import { MotorVehicleService } from "../motor-vehicles/motor-vehicle.service";
-import { MotorVehicle } from "../motor-vehicles/entities/motor-vehicle.entity";
+import { Response } from 'express';
 
 @ApiTags("Examination")
 @Controller("examination")
 export class ExaminationController {
   constructor(
-    private readonly examService: ExaminationService // private readonly motorVehicleService: MotorVehicleService,
-  ) {}
+    private readonly examService: ExaminationService
+  ) { }
 
   @Post()
   @ApiNotFoundResponse({ description: "If motorVehicle not exist!" })
@@ -38,7 +37,7 @@ export class ExaminationController {
   @ApiOkResponse({
     description: "If create examination successfully! return object",
   })
-  async create(@Res() res, @Body() dto: CreateExaminationDto) {
+  async create(@Res() res: Response, @Body() dto: CreateExaminationDto) {
     const result = await this.examService.create(dto);
 
     if (result === -1) {
@@ -59,7 +58,7 @@ export class ExaminationController {
   @HttpCode(HttpStatus.OK)
   async update(
     @Param("id") id: string,
-    @Res() res,
+    @Res() res: Response,
     @Body() dto: UpdateExaminationDto
   ) {
     const result = await this.examService.update(id, dto);

@@ -15,6 +15,8 @@ import { MotorVehicleOwnerService } from "./motor-vehicle-owner.service";
 import { CreateMotorVehicleOwnerDto } from "./dto/create-motor-vehicle-owner.dto";
 import { UpdateMotorVehicleOwnerDto } from "./dto/update-motor-vehicle-owner.dto";
 import { ApiTags } from "@nestjs/swagger";
+import { Response } from 'express';
+
 
 @ApiTags("motor-vehicle-owner")
 @Controller({
@@ -22,18 +24,20 @@ import { ApiTags } from "@nestjs/swagger";
   version: "1",
 })
 export class MotorVehicleOwnerController {
-  constructor(private readonly ownerService: MotorVehicleOwnerService) {}
+  constructor(private readonly ownerService: MotorVehicleOwnerService) { }
 
   @Post()
-  create(@Body() dto: CreateMotorVehicleOwnerDto) {
-    return this.ownerService.create(dto);
+  @HttpCode(HttpStatus.OK)
+  async create(@Res() res: Response, @Body() dto: CreateMotorVehicleOwnerDto) {
+    const result = await this.ownerService.create(dto);
+    return res.status(HttpStatus.OK).send(result);
   }
 
   @Patch(":id")
   @HttpCode(HttpStatus.OK)
   async update(
     @Param("id") id: string,
-    @Res() res,
+    @Res() res: Response,
     @Body() dto: UpdateMotorVehicleOwnerDto
   ) {
     const result = await this.ownerService.update(id, dto);

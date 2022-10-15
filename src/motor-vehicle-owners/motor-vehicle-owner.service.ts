@@ -11,7 +11,7 @@ export class MotorVehicleOwnerService {
   constructor(
     @InjectRepository(MotorVehicleOwner)
     private ownerRepo: Repository<MotorVehicleOwner>
-  ) {}
+  ) { }
 
   create(createMotorVehicleOwnerDto: CreateMotorVehicleOwnerDto) {
     return this.ownerRepo.save(
@@ -57,12 +57,4 @@ export class MotorVehicleOwnerService {
   async delete(id: string): Promise<void> {
     await this.ownerRepo.delete(id);
   }
-
-  // findAll() {
-  //   return `This action returns all motorVehicleOwner`;
-  // }
-
-  // findOne(id: string) {
-  //   return `This action returns a #${id} motorVehicleOwner`;
-  // }
 }

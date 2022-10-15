@@ -32,11 +32,12 @@ export class ExaminationService {
 
     let exam: Examination;
     try {
-      exam = this.examRepo.create({
+      exam = await this.examRepo.create({
         examinationDate: dto.examinationDate,
         mileage: dto.mileage,
         motorVehicle: motorVehicle,
       });
+
 
       await this.examRepo.save(exam);
       motorVehicle.examinations.push(exam);
