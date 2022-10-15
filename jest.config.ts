@@ -12,6 +12,8 @@ const config: Config.InitialOptions = {
   coveragePathIgnorePatterns: ['src/common/', 'src/database/', 'src/config'],
   coverageDirectory: '../coverage',
   testEnvironment: 'node',
+  // resetMocks: true,
+  // clearMocks: true,
 };
 
 export default config;

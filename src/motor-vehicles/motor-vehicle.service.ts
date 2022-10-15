@@ -11,13 +11,11 @@ import { MotorVehicle } from "./entities/motor-vehicle.entity";
 export class MotorVehicleService {
   constructor(
     private dataSource: DataSource,
-
     @InjectRepository(MotorVehicleOwner)
     private ownerRepo: Repository<MotorVehicleOwner>,
-
     @InjectRepository(MotorVehicle)
     private vehicleRepo: Repository<MotorVehicle>
-  ) {}
+  ) { }
 
   async create(dto: CreateMotorVehicleDto) {
     const owner = await this.ownerRepo.findOne({
@@ -26,7 +24,6 @@ export class MotorVehicleService {
       },
       relations: ["motorVehicles"],
     });
-
     if (!owner) return -1;
 
     const queryRunner = this.dataSource.createQueryRunner();
@@ -36,7 +33,7 @@ export class MotorVehicleService {
     let motorVehicle: MotorVehicle;
 
     try {
-      motorVehicle = this.vehicleRepo.create({
+      motorVehicle = await this.vehicleRepo.create({
         licensePlateNumber: dto.licensePlateNumber,
         motorVehicleType: dto.motorVehicleType,
         manufactureDate: dto.manufactureDate,
@@ -44,8 +41,10 @@ export class MotorVehicleService {
       });
 
       await this.vehicleRepo.save(motorVehicle);
+      console.log("owner", owner);
       owner.motorVehicles.push(motorVehicle);
       await this.ownerRepo.save(owner);
+      await queryRunner.commitTransaction();
     } catch (error) {
       await queryRunner.rollbackTransaction();
     } finally {
@@ -71,7 +70,7 @@ export class MotorVehicleService {
       .select("MotorVehicle.id")
       .getRawMany();
 
-    console.log("result", result);
+    // console.log("resultQ1", result);
 
     // if we have not empty result arr, meaning we have conflict
     // (another user want to change to a licensePlateNumber
@@ -96,8 +95,4 @@ export class MotorVehicleService {
   async delete(id: string): Promise<void> {
     await this.vehicleRepo.delete(id);
   }
-
-  // findAll() {
-  //   return `This action returns all motorVehicle`;
-  // }
 }

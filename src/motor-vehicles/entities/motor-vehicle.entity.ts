@@ -23,7 +23,9 @@ export class MotorVehicle extends BaseEntity {
   @Column({ type: "enum", enum: validMotorVehicleType })
   motorVehicleType: string;
 
-  @ManyToOne(() => MotorVehicleOwner, (owner) => owner.motorVehicles)
+  @ManyToOne(() => MotorVehicleOwner, (owner) => owner.motorVehicles, {
+    cascade: false, // default is false, make it explicit
+  })
   motorVehicleOwner: MotorVehicleOwner;
 
   @OneToMany(() => Examination, (exam) => exam.motorVehicle)

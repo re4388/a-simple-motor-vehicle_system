@@ -4,7 +4,6 @@ import {
   CreateDateColumn,
   Entity,
   ManyToOne,
-  OneToMany,
   PrimaryGeneratedColumn,
   UpdateDateColumn,
 } from "typeorm";
@@ -21,7 +20,9 @@ export class Examination extends BaseEntity {
   @Column("decimal", { precision: 8 })
   mileage: number;
 
-  @ManyToOne(() => MotorVehicle, (mv) => mv.examinations)
+  @ManyToOne(() => MotorVehicle, (mv) => mv.examinations, {
+    cascade: false, // default is false, make it explicit
+  })
   motorVehicle: MotorVehicle;
 
   @CreateDateColumn({

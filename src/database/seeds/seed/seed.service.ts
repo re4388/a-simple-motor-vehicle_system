@@ -19,7 +19,7 @@ export class SeedService {
     private ownerRepo: Repository<MotorVehicleOwner>,
 
     private dataSource: DataSource
-  ) {}
+  ) { }
 
   async run() {
     const countExam = await this.examRepo.count();
@@ -88,6 +88,7 @@ export class SeedService {
         examination10,
         examination11,
       ]);
+      await queryRunner.commitTransaction();
     } catch (error) {
       await queryRunner.rollbackTransaction();
     } finally {
