@@ -1,6 +1,6 @@
 import "reflect-metadata";
 import { DataSource, DataSourceOptions } from "typeorm";
-console.log("__dirname", __dirname);
+// console.log("__dirname", __dirname);
 
 export const AppDataSource = new DataSource({
   type: process.env.DATABASE_TYPE,

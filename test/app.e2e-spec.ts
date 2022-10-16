@@ -13,6 +13,7 @@ import { APP_URL } from "./utils/constants";
 
 describe("AppController (e2e)", () => {
   const app = APP_URL;
+  console.log("app", app);
   // let app: INestApplication;
 
   // beforeEach(async () => {
