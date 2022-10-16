@@ -9,7 +9,7 @@ import { MotorVehicleOwner } from "../../../motor-vehicle-owners/entities/motor-
 @Injectable()
 export class SeedService {
   constructor(
-    private readonly logger = new Logger('SeedService'),
+    private readonly logger: Logger,
 
     @InjectRepository(Examination)
     private examRepo: Repository<Examination>,

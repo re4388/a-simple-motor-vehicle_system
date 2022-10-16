@@ -9,17 +9,14 @@ import { MotorVehicleModule } from "./motor-vehicles/motor-vehicle.module";
 import { ExaminationModule } from "./examinations/examination.module";
 import { MotorVehicleOwnerModule } from "./motor-vehicle-owners/motor-vehicle-owner.module";
 import databaseConfig from "./config/database.config";
-import appConfig from './config/app.config';
+import appConfig from "./config/app.config";
 import { LoggerMiddleware } from "./middleware/logger.middleware";
 
 @Module({
   imports: [
     ConfigModule.forRoot({
       isGlobal: true,
-      load: [
-        databaseConfig,
-        appConfig,
-      ],
+      load: [databaseConfig, appConfig],
       envFilePath: [".env"],
     }),
     TypeOrmModule.forRootAsync({
@@ -39,6 +36,6 @@ import { LoggerMiddleware } from "./middleware/logger.middleware";
 })
 export class AppModule implements NestModule {
   configure(consumer: MiddlewareConsumer) {
-    consumer.apply(LoggerMiddleware).forRoutes('*');
+    consumer.apply(LoggerMiddleware).forRoutes("*");
   }
 }

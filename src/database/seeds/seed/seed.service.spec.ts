@@ -1,4 +1,5 @@
 import { createMock } from "@golevelup/ts-jest";
+import { Logger } from "@nestjs/common";
 import { Test, TestingModule } from "@nestjs/testing";
 import { getRepositoryToken } from "@nestjs/typeorm";
 import { DataSource, Repository } from "typeorm";
@@ -19,11 +20,16 @@ describe("SeedService", () => {
   const motorRepo = createMock<Repository<MotorVehicle>>();
   const ownerRepo = createMock<Repository<MotorVehicleOwner>>();
   const dataSourceMock = createMock<DataSource>();
+  const loggerMock = createMock<Logger>();
 
   beforeEach(async () => {
     const module: TestingModule = await Test.createTestingModule({
       providers: [
         SeedService,
+        {
+          provide: Logger,
+          useValue: loggerMock,
+        },
         {
           provide: getRepositoryToken(Examination),
           useValue: examRepo,

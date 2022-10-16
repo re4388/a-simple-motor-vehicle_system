@@ -15,7 +15,7 @@ export class MotorVehicleService {
     private ownerRepo: Repository<MotorVehicleOwner>,
     @InjectRepository(MotorVehicle)
     private vehicleRepo: Repository<MotorVehicle>
-  ) { }
+  ) {}
 
   async create(dto: CreateMotorVehicleDto) {
     const owner = await this.ownerRepo.findOne({
