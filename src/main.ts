@@ -17,15 +17,12 @@ async function bootstrap() {
     type: VersioningType.URI,
   });
 
-  // app.setGlobalPrefix("api");
-
-
   app.useGlobalPipes(new ValidationPipe());
   app.enableCors();
 
   const options = new DocumentBuilder()
-    .setTitle(configService.get('name'))
-    .setDescription("Wemo API docs")
+    .setTitle(configService.get('app.name'))
+    .setDescription("API docs")
     .setVersion("1.0")
     .build();
 

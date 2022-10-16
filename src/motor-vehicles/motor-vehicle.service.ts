@@ -41,7 +41,7 @@ export class MotorVehicleService {
       });
 
       await this.vehicleRepo.save(motorVehicle);
-      console.log("owner", owner);
+      // console.log("owner", owner);
       owner.motorVehicles.push(motorVehicle);
       await this.ownerRepo.save(owner);
       await queryRunner.commitTransaction();

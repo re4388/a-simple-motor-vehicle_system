@@ -27,7 +27,7 @@ import { Response } from "express";
 export class MotorVehicleController {
   constructor(
     private readonly motorService: MotorVehicleService // private readonly ownerService: MotorVehicleOwnerService
-  ) {}
+  ) { }
 
   @Post()
   @ApiNotFoundResponse({ description: "If motorVehicleOwner not exist!" })
@@ -39,7 +39,7 @@ export class MotorVehicleController {
   })
   async create(@Res() res: Response, @Body() dto: CreateMotorVehicleDto) {
     const result = await this.motorService.create(dto);
-    console.log("result", result);
+    // console.log("result", result);
 
     if (result === -1) {
       return res

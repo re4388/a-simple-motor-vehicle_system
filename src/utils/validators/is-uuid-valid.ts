@@ -13,10 +13,10 @@ export class isUUID implements ValidatorConstraintInterface {
       "gm"
     );
     if (regex.test(value)) {
-      console.log("valid uuid");
+      // console.log("valid uuid");
       return true;
     } else {
-      console.log("not valid uuid");
+      // console.log("not valid uuid");
       return false;
     }
   }

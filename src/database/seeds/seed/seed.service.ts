@@ -1,4 +1,4 @@
-import { Injectable } from "@nestjs/common";
+import { Injectable, Logger } from "@nestjs/common";
 import { InjectRepository } from "@nestjs/typeorm";
 import { Repository } from "typeorm";
 import { Examination } from "../../../examinations/entities/examination.entity";
@@ -9,6 +9,8 @@ import { MotorVehicleOwner } from "../../../motor-vehicle-owners/entities/motor-
 @Injectable()
 export class SeedService {
   constructor(
+    private readonly logger = new Logger('SeedService'),
+
     @InjectRepository(Examination)
     private examRepo: Repository<Examination>,
 
@@ -24,11 +26,11 @@ export class SeedService {
   async run() {
     const countExam = await this.examRepo.count();
     const countVehicle = await this.vehicleRepo.count();
-    console.log("countVehicle", countVehicle);
+    // console.log("countVehicle", countVehicle);
     const countOwner = await this.ownerRepo.count();
 
     if (countExam !== 0 || countVehicle !== 0 || countOwner !== 0) {
-      console.log("The db is not empty, initial seeding is abort");
+      this.logger.log("The db is not empty, initial seeding is abort");
       return;
     }
 
@@ -94,7 +96,7 @@ export class SeedService {
       await queryRunner.rollbackTransaction();
     } finally {
       await queryRunner.release();
-      console.log("finished seeding");
+      this.logger.log("finished seeding");
     }
   }
 }
