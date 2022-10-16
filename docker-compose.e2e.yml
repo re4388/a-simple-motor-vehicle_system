@@ -1,0 +1,55 @@
+version: '3.8'
+
+services:
+  app:
+    container_name: wemo_e2e_app
+    build:
+      context: .
+      dockerfile: Dockerfile.e2e
+      target: e2eApp # only build this part of the Dockerfile (see: '... As example' )
+    volumes:
+      - .:/usr/src/app
+      - /usr/src/app/node_modules # 'hack' prevents node_modules/ in the container from being overridden
+    working_dir: /usr/src/app
+    command: npm run test:e2e
+    environment:
+      APP_PORT: 3001
+      NODE_ENV: test
+      DATABASE_TYPE: postgres
+      DATABASE_HOST: 127.0.0.1
+      DATABASE_PORT: 5432
+      DATABASE_NAME: api
+      DATABASE_USERNAME: root
+      DATABASE_PASSWORD: secret
+      DATABASE_SYNCHRONIZE: true
+      DATABASE_MAX_CONNECTIONS: 100
+      DATABASE_SSL_ENABLED: false
+      DATABASE_REJECT_UNAUTHORIZED: false
+    networks:
+      - webnet
+    depends_on:
+      - postgres
+
+  postgres:
+    container_name: wemo_e2e_postgres
+    image: postgres:12
+    networks:
+      - webnet
+    environment:
+      POSTGRES_DB: api
+      POSTGRES_USER: root
+      POSTGRES_PASSWORD: secret
+      PG_DATA: /var/lib/postgresql/data
+    volumes:
+      # - ./seed.db.sql:/docker-entrypoint-initdb.d/db.sql <- run only once when the pgdata volume is first created (when run via docker-compose)
+      - pgdata:/var/lib/postgresql/data # or specify a local folder like ./docker-volumes/pgdata:/var/lib/postgresql/data
+
+networks:
+  webnet:
+
+
+volumes:
+  pgdata:
+  logs:
+
+

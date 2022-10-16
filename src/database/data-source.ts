@@ -1,5 +1,6 @@
 import "reflect-metadata";
 import { DataSource, DataSourceOptions } from "typeorm";
+console.log("__dirname", __dirname);
 
 export const AppDataSource = new DataSource({
   type: process.env.DATABASE_TYPE,
@@ -10,10 +11,8 @@ export const AppDataSource = new DataSource({
   password: process.env.DATABASE_PASSWORD,
   database: process.env.DATABASE_NAME,
   synchronize: process.env.DATABASE_SYNCHRONIZE === "true",
-  dropSchema: false,
-  keepConnectionAlive: true,
-  // logging: process.env.NODE_ENV !== 'production',
-  logging: true,
+  // dropSchema: false,
+  logging: process.env.NODE_ENV !== 'production',
   entities: [__dirname + "/../**/*.entity{.ts,.js}"],
   migrations: [__dirname + "/migrations/**/*{.ts,.js}"],
   cli: {
