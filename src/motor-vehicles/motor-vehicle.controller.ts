@@ -20,14 +20,14 @@ import {
   ApiOkResponse,
   ApiTags,
 } from "@nestjs/swagger";
-import { Response } from 'express';
+import { Response } from "express";
 
 @ApiTags("motor-vehicle")
 @Controller("motor-vehicle")
 export class MotorVehicleController {
   constructor(
     private readonly motorService: MotorVehicleService // private readonly ownerService: MotorVehicleOwnerService
-  ) { }
+  ) {}
 
   @Post()
   @ApiNotFoundResponse({ description: "If motorVehicleOwner not exist!" })

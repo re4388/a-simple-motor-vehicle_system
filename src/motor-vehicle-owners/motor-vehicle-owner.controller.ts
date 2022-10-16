@@ -15,8 +15,7 @@ import { MotorVehicleOwnerService } from "./motor-vehicle-owner.service";
 import { CreateMotorVehicleOwnerDto } from "./dto/create-motor-vehicle-owner.dto";
 import { UpdateMotorVehicleOwnerDto } from "./dto/update-motor-vehicle-owner.dto";
 import { ApiTags } from "@nestjs/swagger";
-import { Response } from 'express';
-
+import { Response } from "express";
 
 @ApiTags("motor-vehicle-owner")
 @Controller({
@@ -24,7 +23,7 @@ import { Response } from 'express';
   version: "1",
 })
 export class MotorVehicleOwnerController {
-  constructor(private readonly ownerService: MotorVehicleOwnerService) { }
+  constructor(private readonly ownerService: MotorVehicleOwnerService) {}
 
   @Post()
   @HttpCode(HttpStatus.OK)

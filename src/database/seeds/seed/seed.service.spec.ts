@@ -2,7 +2,12 @@ import { createMock } from "@golevelup/ts-jest";
 import { Test, TestingModule } from "@nestjs/testing";
 import { getRepositoryToken } from "@nestjs/typeorm";
 import { DataSource, Repository } from "typeorm";
-import { createQueryRunner, exam1, owner, vehicle } from "../../../../test/unittest-mock-data";
+import {
+  createQueryRunner,
+  exam1,
+  owner,
+  vehicle,
+} from "../../../../test/unittest-mock-data";
 import { Examination } from "../../../examinations/entities/examination.entity";
 import { MotorVehicleOwner } from "../../../motor-vehicle-owners/entities/motor-vehicle-owner.entity";
 import { MotorVehicle } from "../../../motor-vehicles/entities/motor-vehicle.entity";
@@ -42,8 +47,7 @@ describe("SeedService", () => {
   });
 
   afterEach((): void => {
-    jest.resetAllMocks()
-
+    jest.resetAllMocks();
   });
 
   it("should be defined", () => {
@@ -51,28 +55,27 @@ describe("SeedService", () => {
   });
 
   it("run seed", async () => {
-    motorRepo.count = jest.fn().mockResolvedValueOnce(0)
-    ownerRepo.count = jest.fn().mockResolvedValueOnce(0)
-    examRepo.count = jest.fn().mockResolvedValueOnce(0)
-    dataSourceMock.createQueryRunner = jest.fn()
-      .mockImplementation(() => createQueryRunner)
-    ownerRepo.create = jest.fn().mockResolvedValueOnce(owner)
-    motorRepo.create = jest.fn().mockResolvedValueOnce(vehicle)
-    motorRepo.create = jest.fn().mockResolvedValueOnce(vehicle)
-    examRepo.create = jest.fn().mockResolvedValueOnce(exam1)
+    motorRepo.count = jest.fn().mockResolvedValueOnce(0);
+    ownerRepo.count = jest.fn().mockResolvedValueOnce(0);
+    examRepo.count = jest.fn().mockResolvedValueOnce(0);
+    dataSourceMock.createQueryRunner = jest
+      .fn()
+      .mockImplementation(() => createQueryRunner);
+    ownerRepo.create = jest.fn().mockResolvedValueOnce(owner);
+    motorRepo.create = jest.fn().mockResolvedValueOnce(vehicle);
+    motorRepo.create = jest.fn().mockResolvedValueOnce(vehicle);
+    examRepo.create = jest.fn().mockResolvedValueOnce(exam1);
 
-    await service.run()
+    await service.run();
 
-    expect(ownerRepo.save).toBeCalled()
-    expect(motorRepo.save).toBeCalled()
-    expect(examRepo.save).toBeCalled()
-
+    expect(ownerRepo.save).toBeCalled();
+    expect(motorRepo.save).toBeCalled();
+    expect(examRepo.save).toBeCalled();
   });
 
   it("run seed with db already having data", async () => {
-    motorRepo.count = jest.fn().mockResolvedValueOnce(1)
-    await service.run()
-    expect(dataSourceMock.createQueryRunner).not.toBeCalled()
-
+    motorRepo.count = jest.fn().mockResolvedValueOnce(1);
+    await service.run();
+    expect(dataSourceMock.createQueryRunner).not.toBeCalled();
   });
 });

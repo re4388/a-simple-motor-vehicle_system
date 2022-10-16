@@ -1,6 +1,10 @@
 import { HttpStatus } from "@nestjs/common";
 import { Test, TestingModule } from "@nestjs/testing";
-import { createMotorDto, updateMotorDto, vehicle } from "../../test/unittest-mock-data";
+import {
+  createMotorDto,
+  updateMotorDto,
+  vehicle,
+} from "../../test/unittest-mock-data";
 import { MotorVehicleController } from "./motor-vehicle.controller";
 import { MotorVehicleService } from "./motor-vehicle.service";
 
@@ -35,82 +39,74 @@ describe("MotorVehicleController", () => {
   it("create motorVehicle", async () => {
     motorVehicleServiceMock.create = jest.fn().mockResolvedValue(vehicle);
     const res = {
-      status: jest.fn().mockImplementationOnce(
-        () => {
-          return {
-            send: jest.fn()
-          }
-        }
-      )
-    }
+      status: jest.fn().mockImplementationOnce(() => {
+        return {
+          send: jest.fn(),
+        };
+      }),
+    };
     await controller.create(<any>res, createMotorDto);
-    expect(motorVehicleServiceMock.create).toBeCalledWith(createMotorDto)
-    expect(res.status).toBeCalledWith(HttpStatus.OK)
+    expect(motorVehicleServiceMock.create).toBeCalledWith(createMotorDto);
+    expect(res.status).toBeCalledWith(HttpStatus.OK);
   });
 
   it("create motorVehicle when owner does not exist", async () => {
     motorVehicleServiceMock.create = jest.fn().mockResolvedValue(-1);
     const res = {
-      status: jest.fn().mockImplementationOnce(
-        () => {
-          return {
-            send: jest.fn()
-          }
-        }
-      )
-    }
+      status: jest.fn().mockImplementationOnce(() => {
+        return {
+          send: jest.fn(),
+        };
+      }),
+    };
     await controller.create(<any>res, createMotorDto);
-    expect(motorVehicleServiceMock.create).toBeCalledWith(createMotorDto)
-    expect(res.status).toBeCalledWith(HttpStatus.NOT_FOUND)
+    expect(motorVehicleServiceMock.create).toBeCalledWith(createMotorDto);
+    expect(res.status).toBeCalledWith(HttpStatus.NOT_FOUND);
   });
 
   it("update motorVehicle when owner does not exist", async () => {
     motorVehicleServiceMock.update = jest.fn().mockResolvedValue(-1);
     const res = {
-      status: jest.fn().mockImplementationOnce(
-        () => {
-          return {
-            send: jest.fn()
-          }
-        }
-      )
-    }
-    const dummyID = 'dummyID'
+      status: jest.fn().mockImplementationOnce(() => {
+        return {
+          send: jest.fn(),
+        };
+      }),
+    };
+    const dummyID = "dummyID";
     await controller.update(dummyID, <any>res, updateMotorDto);
     expect(motorVehicleServiceMock.update).toBeCalledWith(dummyID, {
-      "licensePlateNumber": updateMotorDto.licensePlateNumber
-    })
-    expect(res.status).toBeCalledWith(HttpStatus.FORBIDDEN)
+      licensePlateNumber: updateMotorDto.licensePlateNumber,
+    });
+    expect(res.status).toBeCalledWith(HttpStatus.FORBIDDEN);
   });
 
   it("update motorVehicle when owner exist", async () => {
     motorVehicleServiceMock.update = jest.fn().mockResolvedValue(vehicle);
     const res = {
-      status: jest.fn().mockImplementationOnce(
-        () => {
-          return {
-            send: jest.fn()
-          }
-        }
-      )
-    }
-    const dummyID = 'dummyID'
+      status: jest.fn().mockImplementationOnce(() => {
+        return {
+          send: jest.fn(),
+        };
+      }),
+    };
+    const dummyID = "dummyID";
     await controller.update(dummyID, <any>res, updateMotorDto);
     expect(motorVehicleServiceMock.update).toBeCalledWith(dummyID, {
-      "licensePlateNumber": updateMotorDto.licensePlateNumber
-    })
-    expect(res.status).toBeCalledWith(HttpStatus.OK)
+      licensePlateNumber: updateMotorDto.licensePlateNumber,
+    });
+    expect(res.status).toBeCalledWith(HttpStatus.OK);
   });
 
   it("get by id", async () => {
-    const dummyID = 'dummyID'
+    const dummyID = "dummyID";
     await controller.findOne(dummyID);
-    expect(motorVehicleServiceMock.findOne).toBeCalledWith({ "id": dummyID })
+    expect(motorVehicleServiceMock.findOne).toBeCalledWith({ id: dummyID });
   });
 
   it("remove by id", async () => {
-    const dummyID = 'dummyID'
+    const dummyID = "dummyID";
     await controller.remove(dummyID);
-    expect(motorVehicleServiceMock.delete).toBeCalledWith(dummyID)
+    expect(motorVehicleServiceMock.delete).toBeCalledWith(dummyID);
   });
 });

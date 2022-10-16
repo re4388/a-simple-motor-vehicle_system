@@ -1,23 +1,39 @@
-import { ValidationPipe } from "@nestjs/common";
+import { ValidationPipe, VersioningType, Logger } from "@nestjs/common";
 import { NestFactory } from "@nestjs/core";
 import { DocumentBuilder, SwaggerModule } from "@nestjs/swagger";
 import { useContainer } from "class-validator";
+import { ConfigService } from '@nestjs/config';
 import { AppModule } from "./app.module";
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
   useContainer(app.select(AppModule), { fallbackOnErrors: true });
-  app.setGlobalPrefix("api");
+  const configService = app.get(ConfigService);
+
+  app.setGlobalPrefix(configService.get('app.apiPrefix'), {
+    exclude: ['/'],
+  });
+  app.enableVersioning({
+    type: VersioningType.URI,
+  });
+
+  // app.setGlobalPrefix("api");
+
+
   app.useGlobalPipes(new ValidationPipe());
   app.enableCors();
 
   const options = new DocumentBuilder()
-    .setTitle("Wemo")
-    .setDescription("Wemo test API Collection")
+    .setTitle(configService.get('name'))
+    .setDescription("Wemo API docs")
     .setVersion("1.0")
     .build();
+
   const document = SwaggerModule.createDocument(app, options);
-  SwaggerModule.setup("api", app, document);
-  await app.listen(process.env.PORT || 3001);
+  SwaggerModule.setup("docs", app, document);
+
+  let logger = new Logger('main.ts')
+  logger.log(`App is listening: ${configService.get('app.port')}`);
+  await app.listen(configService.get('app.port'));
 }
 bootstrap();

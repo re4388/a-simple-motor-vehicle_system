@@ -1,0 +1,31 @@
+version: '3'
+
+services:
+  postgres:
+    container_name: wemo_dev_postgres
+    image: postgres:14.5
+    ports:
+      - ${DATABASE_PORT}:5432
+    volumes:
+      - ./.data/db:/var/lib/postgresql/data
+    environment:
+      POSTGRES_USER: ${DATABASE_USERNAME}
+      POSTGRES_PASSWORD: ${DATABASE_PASSWORD}
+      POSTGRES_DB: ${DATABASE_NAME}
+
+  adminer:
+    container_name: wemo_dev_adminer
+    image: adminer
+    restart: always
+    ports:
+      - 8080:8080
+
+  api:
+    container_name: wemo_dev_api
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - ${APP_PORT}:${APP_PORT}
+    depends_on:
+      - postgres

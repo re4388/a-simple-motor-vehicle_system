@@ -43,7 +43,6 @@ export class SeedService {
         email: "ben_hu@abc.com",
         city: "Tainan",
       });
-      console.log("Q1 motorVehicleOwner", motorVehicleOwner);
 
       await this.ownerRepo.save(motorVehicleOwner);
 

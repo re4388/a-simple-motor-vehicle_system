@@ -2,7 +2,11 @@ import { createMock } from "@golevelup/ts-jest";
 import { Test, TestingModule } from "@nestjs/testing";
 import { getRepositoryToken } from "@nestjs/typeorm";
 import { Repository } from "typeorm";
-import { creteOwnerDto, ownerSeed, updateOwnerDto } from "../../test/unittest-mock-data";
+import {
+  creteOwnerDto,
+  ownerSeed,
+  updateOwnerDto,
+} from "../../test/unittest-mock-data";
 import { MotorVehicleOwner } from "./entities/motor-vehicle-owner.entity";
 import { MotorVehicleOwnerService } from "./motor-vehicle-owner.service";
 
@@ -25,8 +29,7 @@ describe("MotorVehicleOwnerService", () => {
   });
 
   afterEach((): void => {
-    jest.resetAllMocks()
-
+    jest.resetAllMocks();
   });
 
   it("should be defined", () => {
@@ -34,45 +37,43 @@ describe("MotorVehicleOwnerService", () => {
   });
 
   it("create works", async () => {
-    ownerRepoMock.save = jest.fn()
-    ownerRepoMock.create = jest.fn()
-    await service.create(creteOwnerDto)
-    expect(ownerRepoMock.save).toBeCalled()
-    expect(ownerRepoMock.create).toBeCalledWith(creteOwnerDto)
+    ownerRepoMock.save = jest.fn();
+    ownerRepoMock.create = jest.fn();
+    await service.create(creteOwnerDto);
+    expect(ownerRepoMock.save).toBeCalled();
+    expect(ownerRepoMock.create).toBeCalledWith(creteOwnerDto);
   });
 
   it("update works", async () => {
-    ownerRepoMock.save = jest.fn()
-    ownerRepoMock.create = jest.fn()
-    const dummyID = "dummyUUID"
-    await service.update(dummyID, updateOwnerDto)
-    expect(ownerRepoMock.save).toBeCalled()
-    expect(ownerRepoMock.create).toBeCalledWith(
-      {
-        id: dummyID,
-        ...updateOwnerDto
-      }
-    )
+    ownerRepoMock.save = jest.fn();
+    ownerRepoMock.create = jest.fn();
+    const dummyID = "dummyUUID";
+    await service.update(dummyID, updateOwnerDto);
+    expect(ownerRepoMock.save).toBeCalled();
+    expect(ownerRepoMock.create).toBeCalledWith({
+      id: dummyID,
+      ...updateOwnerDto,
+    });
   });
 
   it("getById works", async () => {
-    ownerRepoMock.findOneBy = jest.fn()
-    let dummyID = 'dummyID'
-    await service.getById(dummyID)
-    expect(ownerRepoMock.findOneBy).toBeCalledWith({ id: dummyID })
+    ownerRepoMock.findOneBy = jest.fn();
+    const dummyID = "dummyID";
+    await service.getById(dummyID);
+    expect(ownerRepoMock.findOneBy).toBeCalledWith({ id: dummyID });
   });
 
   it("findOne works", async () => {
-    ownerRepoMock.findOne = jest.fn()
-    let dummyID = 'dummyID'
-    await service.findOne({ id: dummyID })
-    expect(ownerRepoMock.findOne).toBeCalledWith({ "where": { "id": dummyID } })
+    ownerRepoMock.findOne = jest.fn();
+    const dummyID = "dummyID";
+    await service.findOne({ id: dummyID });
+    expect(ownerRepoMock.findOne).toBeCalledWith({ where: { id: dummyID } });
   });
 
   it("delete works", async () => {
-    ownerRepoMock.delete = jest.fn()
-    let dummyID = 'dummyID'
-    await service.delete(dummyID)
-    expect(ownerRepoMock.delete).toBeCalledWith(dummyID)
+    ownerRepoMock.delete = jest.fn();
+    const dummyID = "dummyID";
+    await service.delete(dummyID);
+    expect(ownerRepoMock.delete).toBeCalledWith(dummyID);
   });
 });

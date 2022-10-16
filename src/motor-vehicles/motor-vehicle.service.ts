@@ -70,8 +70,6 @@ export class MotorVehicleService {
       .select("MotorVehicle.id")
       .getRawMany();
 
-    // console.log("resultQ1", result);
-
     // if we have not empty result arr, meaning we have conflict
     // (another user want to change to a licensePlateNumber
     // which had been used)

@@ -9,12 +9,16 @@ import { MotorVehicleModule } from "./motor-vehicles/motor-vehicle.module";
 import { ExaminationModule } from "./examinations/examination.module";
 import { MotorVehicleOwnerModule } from "./motor-vehicle-owners/motor-vehicle-owner.module";
 import databaseConfig from "./config/database.config";
+import appConfig from './config/app.config';
 
 @Module({
   imports: [
     ConfigModule.forRoot({
       isGlobal: true,
-      load: [databaseConfig],
+      load: [
+        databaseConfig,
+        appConfig,
+      ],
       envFilePath: [".env"],
     }),
     TypeOrmModule.forRootAsync({
@@ -32,4 +36,4 @@ import databaseConfig from "./config/database.config";
   controllers: [AppController],
   providers: [AppService],
 })
-export class AppModule {}
+export class AppModule { }

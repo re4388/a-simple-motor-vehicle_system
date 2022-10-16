@@ -11,7 +11,7 @@ export class MotorVehicleOwnerService {
   constructor(
     @InjectRepository(MotorVehicleOwner)
     private ownerRepo: Repository<MotorVehicleOwner>
-  ) { }
+  ) {}
 
   create(createMotorVehicleOwnerDto: CreateMotorVehicleOwnerDto) {
     return this.ownerRepo.save(

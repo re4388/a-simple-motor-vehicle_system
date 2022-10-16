@@ -15,7 +15,7 @@ export class ExaminationService {
     private examRepo: Repository<Examination>,
     @InjectRepository(MotorVehicle)
     private motorRepo: Repository<MotorVehicle>
-  ) { }
+  ) {}
 
   async create(dto: CreateExaminationDto) {
     const motorVehicle = await this.motorRepo.findOne({
@@ -37,7 +37,6 @@ export class ExaminationService {
         mileage: dto.mileage,
         motorVehicle: motorVehicle,
       });
-
 
       await this.examRepo.save(exam);
       motorVehicle.examinations.push(exam);
