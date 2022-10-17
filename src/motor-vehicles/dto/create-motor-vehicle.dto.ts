@@ -14,7 +14,7 @@ export class CreateMotorVehicleDto {
     required: true,
   })
   @Transform(({ value }) => value?.trim())
-  @IsNotEmpty({ message: "mustBeNotEmpty" })
+  @IsNotEmpty()
   @IsString()
   @Validate(IsLicensePlateNumberValid, {
     message: "licensePlateNumberFormatIsInvalid",
@@ -34,14 +34,14 @@ export class CreateMotorVehicleDto {
   @Validate(isMotorVehicleTypeValid, {
     message: "MotorVehicleTypeIsInvalid",
   })
-  @IsNotEmpty({ message: "mustBeNotEmpty" })
+  @IsNotEmpty()
   motorVehicleType: MotorVehicleTypeEnum;
 
   @ApiProperty({
     example: "2022-01-01",
     required: true,
   })
-  @IsNotEmpty({ message: "mustBeNotEmpty" })
+  @IsNotEmpty()
   @Type(() => Date)
   manufactureDate: Date;
 

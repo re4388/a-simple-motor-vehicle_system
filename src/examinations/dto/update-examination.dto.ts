@@ -15,7 +15,6 @@ export class UpdateExaminationDto extends PartialType(CreateExaminationDto) {
     example: "2321",
     required: true,
   })
-  @IsNotEmpty({ message: "mustBeNotEmpty" })
   @IsInt()
   @Min(0)
   @Max(1000000)
@@ -26,7 +25,6 @@ export class UpdateExaminationDto extends PartialType(CreateExaminationDto) {
     example: "2022-01-01",
     required: true,
   })
-  @IsNotEmpty({ message: "mustBeNotEmpty" })
   @Type(() => Date)
   @IsOptional()
   examinationDate?: Date;

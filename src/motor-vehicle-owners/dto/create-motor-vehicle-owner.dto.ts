@@ -20,17 +20,20 @@ export class CreateMotorVehicleOwnerDto {
     message: "emailAlreadyExists",
   })
   @IsEmail()
+  @IsNotEmpty()
   email: string;
 
   @ApiProperty({
     example: "Don Man Road No.21",
     required: true,
   })
+  @IsNotEmpty()
   address: string;
 
   @ApiProperty({
     example: "New Taipei City",
     required: true,
   })
+  @IsNotEmpty()
   city: string;
 }

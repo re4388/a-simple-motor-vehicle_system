@@ -14,7 +14,7 @@ export class CreateExaminationDto {
     example: "2321",
     required: true,
   })
-  @IsNotEmpty({ message: "mustBeNotEmpty" })
+  @IsNotEmpty()
   @IsInt()
   @Min(0)
   @Max(1000000)
@@ -24,7 +24,7 @@ export class CreateExaminationDto {
     example: "2022-01-01",
     required: true,
   })
-  @IsNotEmpty({ message: "mustBeNotEmpty" })
+  @IsNotEmpty()
   @Type(() => Date)
   examinationDate: Date;
 
@@ -39,7 +39,3 @@ export class CreateExaminationDto {
   @IsNotEmpty()
   motorVehicleId: string;
 }
-
-// const examination00 = this.examRepo.create({
-//     motorVehicle: motorVehicle0,
-// })

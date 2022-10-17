@@ -14,7 +14,6 @@ export class UpdateMotorVehicleDto extends PartialType(CreateMotorVehicleDto) {
     required: true,
   })
   @Transform(({ value }) => value?.trim())
-  @IsNotEmpty({ message: "mustBeNotEmpty" })
   @IsString()
   @Validate(IsLicensePlateNumberValid, {
     message: "licensePlateNumberFormatIsInvalid",
@@ -29,7 +28,6 @@ export class UpdateMotorVehicleDto extends PartialType(CreateMotorVehicleDto) {
     example: "SmallLight",
     required: true,
   })
-  @IsNotEmpty({ message: "mustBeNotEmpty" })
   @Validate(isMotorVehicleTypeValid, {
     message: "MotorVehicleTypeIsInvalid",
   })
@@ -40,7 +38,6 @@ export class UpdateMotorVehicleDto extends PartialType(CreateMotorVehicleDto) {
     example: "2022-01-01",
     required: true,
   })
-  @IsNotEmpty({ message: "mustBeNotEmpty" })
   @Type(() => Date)
   @IsOptional()
   manufactureDate?: Date;

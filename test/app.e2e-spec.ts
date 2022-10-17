@@ -151,20 +151,110 @@ describe("AppController (e2e)", () => {
   });
 
 
-  it("/api/motor-vehicle-owner (POST) when no name field ", async () => {
-    const noNameOwner = {
-      email: "e2eUser222222@example.com",
+  it("/api/motor-vehicle-owner (POST) BAD_REQUEST when no name field ", async () => {
+    const fakeOwner = {
+      email: "e2eUser@example.com",
       address: "Don Man Road No.21",
       city: "Taichung City",
     };
     // test POST
     const response = await request(app)
       .post("/api/v1/motor-vehicle-owner")
-      .send(noNameOwner);
+      .send(fakeOwner);
 
-    console.log("response", response);
     expect(response.status).toEqual(HttpStatus.BAD_REQUEST);
     expect(response.body.message[0]).toEqual('name should not be empty');
+  });
+
+
+  it("/api/motor-vehicle-owner (POST) BAD_REQUEST when no email field ", async () => {
+    const fakeOwner = {
+      name: "e2eUser",
+      address: "Don Man Road No.21",
+      city: "Taichung City",
+    };
+    // test POST
+    const response = await request(app)
+      .post("/api/v1/motor-vehicle-owner")
+      .send(fakeOwner);
+
+    expect(response.status).toEqual(HttpStatus.BAD_REQUEST);
+    expect(response.body.message[0]).toEqual('email should not be empty');
+  });
+
+  it("/api/motor-vehicle-owner (POST) BAD_REQUEST when no address field ", async () => {
+    const fakeOwner = {
+      name: "e2eUser",
+      email: "abc@gmail.com",
+      city: "Taichung City",
+    };
+    // test POST
+    const response = await request(app)
+      .post("/api/v1/motor-vehicle-owner")
+      .send(fakeOwner);
+
+    expect(response.status).toEqual(HttpStatus.BAD_REQUEST);
+    expect(response.body.message[0]).toEqual('address should not be empty');
+  });
+
+  it("/api/motor-vehicle-owner (POST) BAD_REQUEST when no city field ", async () => {
+    const fakeOwner = {
+      name: "e2eUser",
+      address: "Don Man Road No.21",
+      email: "abc@gmail.com",
+    };
+    // test POST
+    const response = await request(app)
+      .post("/api/v1/motor-vehicle-owner")
+      .send(fakeOwner);
+
+    expect(response.status).toEqual(HttpStatus.BAD_REQUEST);
+    expect(response.body.message[0]).toEqual('city should not be empty');
+  });
+
+  it("/api/motor-vehicle-owner (POST) BAD_REQUEST when email is not valid ", async () => {
+    const fakeOwner = {
+      name: "e2eUser",
+      address: "Don Man Road No.21",
+      email: "this is not valid email",
+      city: "Taichung City",
+    };
+    // test POST
+    const response = await request(app)
+      .post("/api/v1/motor-vehicle-owner")
+      .send(fakeOwner);
+
+    expect(response.status).toEqual(HttpStatus.BAD_REQUEST);
+    expect(response.body.message[0]).toEqual('email must be an email');
+  });
+
+  it("/api/motor-vehicle-owner (POST) BAD_REQUEST when email is duplicated ", async () => {
+
+    let e2eUserV2Id: string
+
+    const fakeOwner = {
+      name: "e2eUserV2",
+      address: "Don Man Road No.21",
+      email: "aaa@gmail.com",
+      city: "Taichung City",
+    };
+
+    const response1 = await request(app)
+      .post("/api/v1/motor-vehicle-owner")
+      .send(fakeOwner)
+    e2eUserV2Id = response1.body.id;
+
+
+    const response2 = await request(app)
+      .post("/api/v1/motor-vehicle-owner")
+      .send(fakeOwner);
+
+    expect(response2.status).toEqual(HttpStatus.BAD_REQUEST);
+    expect(response2.body.message[0]).toEqual('emailAlreadyExists');
+
+
+    // clear up db
+    await request(app).delete(`/api/v1/motor-vehicle-owner/${e2eUserV2Id}`)
   });
 
 
