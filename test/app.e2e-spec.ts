@@ -151,17 +151,16 @@ describe("AppController (e2e)", () => {
   });
 
 
-  it("/api/motor-vehicle-owner (POST) invalid cases ", async () => {
-    const fakeOwner = {
+  it("/api/motor-vehicle-owner (POST) when no name field ", async () => {
+    const noNameOwner = {
       email: "e2eUser222222@example.com",
       address: "Don Man Road No.21",
       city: "Taichung City",
     };
-
     // test POST
     const response = await request(app)
       .post("/api/v1/motor-vehicle-owner")
-      .send(fakeOwner);
+      .send(noNameOwner);
 
     console.log("response", response);
     expect(response.status).toEqual(HttpStatus.BAD_REQUEST);
