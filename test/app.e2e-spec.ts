@@ -151,23 +151,22 @@ describe("AppController (e2e)", () => {
   });
 
 
-  // it("/api/motor-vehicle-owner (POST) invalid if no name field ", async () => {
-  //   const fakeOwner = {
-  //     email: "e2eUser222222@example.com",
-  //     address: "Don Man Road No.21",
-  //     city: "Taichung City",
-  //   };
+  it("/api/motor-vehicle-owner (POST) invalid cases ", async () => {
+    const fakeOwner = {
+      email: "e2eUser222222@example.com",
+      address: "Don Man Road No.21",
+      city: "Taichung City",
+    };
 
-  //   // test POST
-  //   const response = await request(app)
-  //     .post("/api/v1/motor-vehicle-owner")
-  //     .send(fakeOwner);
+    // test POST
+    const response = await request(app)
+      .post("/api/v1/motor-vehicle-owner")
+      .send(fakeOwner);
 
-  //   expect(response.status).toEqual(HttpStatus.OK);
-  //   console.log("response", response);
-  //   // newOwnerId = response.body.id;
-  //   // console.log("newOwnerId", newOwnerId);
-  // });
+    console.log("response", response);
+    expect(response.status).toEqual(HttpStatus.BAD_REQUEST);
+    expect(response.body.message[0]).toEqual('name should not be empty');
+  });
 
 
 

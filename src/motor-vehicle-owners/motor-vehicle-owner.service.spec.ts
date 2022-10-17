@@ -5,9 +5,13 @@ import { Repository } from "typeorm";
 import {
   creteOwnerDto,
   updateOwnerDto,
+  vehicle,
 } from "../../test/unittest-mock-data";
 import { MotorVehicleOwner } from "./entities/motor-vehicle-owner.entity";
 import { MotorVehicleOwnerService } from "./motor-vehicle-owner.service";
+
+
+
 
 describe("MotorVehicleOwnerService", () => {
   let service: MotorVehicleOwnerService;
@@ -54,6 +58,28 @@ describe("MotorVehicleOwnerService", () => {
       ...updateOwnerDto,
     });
   });
+
+  it("update works when we have mail conflict", async () => {
+    ownerRepoMock.save = jest.fn();
+
+    const createQueryBuilder: any = {
+      where: () => createQueryBuilder,
+      andWhere: () => createQueryBuilder,
+      setParameters: () => createQueryBuilder,
+      select: () => createQueryBuilder,
+      getRawMany: () => [vehicle],
+    };
+
+    jest
+      .spyOn(ownerRepoMock, 'createQueryBuilder')
+      .mockImplementation(() => createQueryBuilder);
+    const dummyID = "dummyUUID";
+    let res = await service.update(dummyID, updateOwnerDto);
+    expect(ownerRepoMock.save).not.toBeCalled();
+    expect(res).toBe(-1)
+  });
+
+
 
   it("getById works", async () => {
     ownerRepoMock.findOneBy = jest.fn();

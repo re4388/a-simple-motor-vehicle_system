@@ -111,25 +111,24 @@ describe("MotorVehicleService", () => {
     });
   });
 
-  // TODO add this later
-  it.skip("no update motorVehicles when licensePlateNumber conflict", async () => {
+  it("no update motorVehicles when licensePlateNumber conflict", async () => {
+
     const createQueryBuilder: any = {
       where: () => createQueryBuilder,
       andWhere: () => createQueryBuilder,
-      commitTransaction: () => createQueryBuilder,
       setParameters: () => createQueryBuilder,
       select: () => createQueryBuilder,
-      getRawMany: () => Promise.resolve([[vehicle]]),
+      getRawMany: () => [vehicle],
     };
-    vehicleRepoMock.createQueryBuilder = jest
-      .fn()
-      .mockImplementationOnce(() => createQueryBuilder);
-    await service.update("dummyUUID", updateMotorDto);
+
+    jest
+      .spyOn(vehicleRepoMock, 'createQueryBuilder')
+      .mockImplementation(() => createQueryBuilder);
+
+    let res = await service.update("dummyUUID", updateMotorDto);
     expect(vehicleRepoMock.save).not.toHaveBeenCalled();
     expect(vehicleRepoMock.create).not.toHaveBeenCalled();
-    // jest.resetAllMocks()
-    // jest.restoreAllMocks();
-    // jest.clearAllMocks();
+    expect(res).toBe(-1)
   });
 
   it("findOne works", async () => {
