@@ -19,7 +19,7 @@ const config: Config.InitialOptions = {
     '.dto.ts',
     '.middleware.ts',
     'main.ts',
-    '.entity.ts'
+    '.entity.ts',
   ],
   coverageDirectory: '../coverage',
   testEnvironment: 'node',

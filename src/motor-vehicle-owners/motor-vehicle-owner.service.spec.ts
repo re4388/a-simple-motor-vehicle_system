@@ -10,9 +10,6 @@ import {
 import { MotorVehicleOwner } from "./entities/motor-vehicle-owner.entity";
 import { MotorVehicleOwnerService } from "./motor-vehicle-owner.service";
 
-
-
-
 describe("MotorVehicleOwnerService", () => {
   let service: MotorVehicleOwnerService;
   const ownerRepoMock = createMock<Repository<MotorVehicleOwner>>();
@@ -71,15 +68,13 @@ describe("MotorVehicleOwnerService", () => {
     };
 
     jest
-      .spyOn(ownerRepoMock, 'createQueryBuilder')
+      .spyOn(ownerRepoMock, "createQueryBuilder")
       .mockImplementation(() => createQueryBuilder);
     const dummyID = "dummyUUID";
-    let res = await service.update(dummyID, updateOwnerDto);
+    const res = await service.update(dummyID, updateOwnerDto);
     expect(ownerRepoMock.save).not.toBeCalled();
-    expect(res).toBe(-1)
+    expect(res).toBe(-1);
   });
-
-
 
   it("getById works", async () => {
     ownerRepoMock.findOneBy = jest.fn();

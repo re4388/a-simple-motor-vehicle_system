@@ -112,7 +112,6 @@ describe("MotorVehicleService", () => {
   });
 
   it("no update motorVehicles when licensePlateNumber conflict", async () => {
-
     const createQueryBuilder: any = {
       where: () => createQueryBuilder,
       andWhere: () => createQueryBuilder,
@@ -122,13 +121,13 @@ describe("MotorVehicleService", () => {
     };
 
     jest
-      .spyOn(vehicleRepoMock, 'createQueryBuilder')
+      .spyOn(vehicleRepoMock, "createQueryBuilder")
       .mockImplementation(() => createQueryBuilder);
 
-    let res = await service.update("dummyUUID", updateMotorDto);
+    const res = await service.update("dummyUUID", updateMotorDto);
     expect(vehicleRepoMock.save).not.toHaveBeenCalled();
     expect(vehicleRepoMock.create).not.toHaveBeenCalled();
-    expect(res).toBe(-1)
+    expect(res).toBe(-1);
   });
 
   it("findOne works", async () => {

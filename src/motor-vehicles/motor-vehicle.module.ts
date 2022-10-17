@@ -11,4 +11,4 @@ import { MotorVehicleOwnerModule } from "../motor-vehicle-owners/motor-vehicle-o
   controllers: [MotorVehicleController],
   providers: [MotorVehicleService],
 })
-export class MotorVehicleModule { }
+export class MotorVehicleModule {}

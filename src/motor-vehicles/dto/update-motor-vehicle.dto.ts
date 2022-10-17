@@ -1,7 +1,7 @@
 import { PartialType } from "@nestjs/mapped-types";
 import { ApiProperty } from "@nestjs/swagger";
 import { Transform, Type } from "class-transformer";
-import { IsNotEmpty, IsOptional, IsString, Validate } from "class-validator";
+import { IsOptional, IsString, Validate } from "class-validator";
 import { MotorVehicleTypeEnum } from "../../common/enum";
 import { IsLicensePlateNumberValid } from "../../utils/validators/is-license-plate-number-valid";
 import { isMotorVehicleTypeValid } from "../../utils/validators/is-vehicle-type-valid";

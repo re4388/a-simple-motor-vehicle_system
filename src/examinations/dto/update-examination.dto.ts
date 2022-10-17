@@ -1,13 +1,7 @@
 import { PartialType } from "@nestjs/mapped-types";
 import { ApiProperty } from "@nestjs/swagger";
 import { Type } from "class-transformer";
-import {
-  IsInt,
-  IsNotEmpty,
-  IsOptional,
-  Max,
-  Min,
-} from "class-validator";
+import { IsInt, IsOptional, Max, Min } from "class-validator";
 import { CreateExaminationDto } from "./create-examination.dto";
 
 export class UpdateExaminationDto extends PartialType(CreateExaminationDto) {
