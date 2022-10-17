@@ -23,7 +23,10 @@ import {
 import { Response } from "express";
 
 @ApiTags("Examination")
-@Controller("examination")
+@Controller({
+  path: "examination",
+  version: "1",
+})
 export class ExaminationController {
   constructor(private readonly examService: ExaminationService) {}
 

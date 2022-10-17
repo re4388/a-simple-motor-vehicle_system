@@ -5,10 +5,8 @@ import {
   IsInt,
   IsNotEmpty,
   IsOptional,
-  isUUID,
   Max,
   Min,
-  Validate,
 } from "class-validator";
 import { CreateExaminationDto } from "./create-examination.dto";
 

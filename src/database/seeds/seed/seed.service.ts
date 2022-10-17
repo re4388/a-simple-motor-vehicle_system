@@ -9,7 +9,6 @@ import { MotorVehicleOwner } from "../../../motor-vehicle-owners/entities/motor-
 @Injectable()
 export class SeedService {
   constructor(
-
     @InjectRepository(Examination)
     private examRepo: Repository<Examination>,
 
@@ -20,7 +19,7 @@ export class SeedService {
     private ownerRepo: Repository<MotorVehicleOwner>,
 
     private dataSource: DataSource
-  ) { }
+  ) {}
 
   async run() {
     const countExam = await this.examRepo.count();

@@ -1,8 +1,7 @@
 import { PartialType } from "@nestjs/mapped-types";
 import { ApiProperty } from "@nestjs/swagger";
 import { Transform } from "class-transformer";
-import { IsEmail, IsNotEmpty, IsOptional, Validate } from "class-validator";
-import { IsNotExist } from "../../utils/validators/is-not-exists.validator";
+import { IsEmail, IsNotEmpty, IsOptional } from "class-validator";
 import { CreateMotorVehicleOwnerDto } from "./create-motor-vehicle-owner.dto";
 
 export class UpdateMotorVehicleOwnerDto extends PartialType(

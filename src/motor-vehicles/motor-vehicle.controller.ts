@@ -23,7 +23,10 @@ import {
 import { Response } from "express";
 
 @ApiTags("motor-vehicle")
-@Controller("motor-vehicle")
+@Controller({
+  path: "motor-vehicle",
+  version: "1",
+})
 export class MotorVehicleController {
   constructor(
     private readonly motorService: MotorVehicleService // private readonly ownerService: MotorVehicleOwnerService

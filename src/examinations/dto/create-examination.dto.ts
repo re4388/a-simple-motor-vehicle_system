@@ -1,14 +1,12 @@
 import { ApiProperty } from "@nestjs/swagger";
-import { Transform, Type } from "class-transformer";
+import { Type } from "class-transformer";
 import {
-  IsEmail,
   IsInt,
   IsNotEmpty,
   Max,
   Min,
   Validate,
 } from "class-validator";
-import { IsNotExist } from "../../utils/validators/is-not-exists.validator";
 import { isUUID } from "../../utils/validators/is-uuid-valid";
 
 export class CreateExaminationDto {

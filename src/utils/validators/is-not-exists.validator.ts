@@ -2,16 +2,15 @@ import {
   ValidatorConstraint,
   ValidatorConstraintInterface,
 } from "class-validator";
-import { DataSource, Repository } from "typeorm";
+import { DataSource } from "typeorm";
 import { ValidationArguments } from "class-validator/types/validation/ValidationArguments";
 import { Injectable } from "@nestjs/common";
-import { InjectDataSource, InjectRepository } from "@nestjs/typeorm";
-import { MotorVehicleOwner } from "../../motor-vehicle-owners/entities/motor-vehicle-owner.entity";
+import { InjectDataSource } from "@nestjs/typeorm";
 
 type ValidationEntity =
   | {
-      id?: number | string;
-    }
+    id?: number | string;
+  }
   | undefined;
 
 @Injectable()
@@ -20,7 +19,7 @@ export class IsNotExist implements ValidatorConstraintInterface {
   constructor(
     @InjectDataSource()
     private dataSource: DataSource
-  ) {}
+  ) { }
 
   async validate(value: string, validationArguments: ValidationArguments) {
     const repository = validationArguments.constraints[0] as string;

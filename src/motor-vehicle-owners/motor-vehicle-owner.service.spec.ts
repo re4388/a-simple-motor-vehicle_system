@@ -4,7 +4,6 @@ import { getRepositoryToken } from "@nestjs/typeorm";
 import { Repository } from "typeorm";
 import {
   creteOwnerDto,
-  ownerSeed,
   updateOwnerDto,
 } from "../../test/unittest-mock-data";
 import { MotorVehicleOwner } from "./entities/motor-vehicle-owner.entity";

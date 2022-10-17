@@ -5,7 +5,6 @@ import { TypeOrmModule } from "@nestjs/typeorm";
 import { Examination } from "./entities/examination.entity";
 import { MotorVehicleModule } from "../motor-vehicles/motor-vehicle.module";
 import { MotorVehicle } from "../motor-vehicles/entities/motor-vehicle.entity";
-import { MotorVehicleService } from "../motor-vehicles/motor-vehicle.service";
 import { MotorVehicleOwner } from "../motor-vehicle-owners/entities/motor-vehicle-owner.entity";
 import { MotorVehicleOwnerModule } from "../motor-vehicle-owners/motor-vehicle-owner.module";
 
@@ -19,4 +18,4 @@ import { MotorVehicleOwnerModule } from "../motor-vehicle-owners/motor-vehicle-o
   controllers: [ExaminationController],
   providers: [ExaminationService],
 })
-export class ExaminationModule {}
+export class ExaminationModule { }
