@@ -11,15 +11,15 @@ describe("AppController (e2e)", () => {
   // console.log("app", app);
 
   afterAll(async () => {
-    request(app)
-      .delete(`/api/v1/motor-vehicle/${newMotorId}`)
+    // console.log("newExamId", newExamId);
+    // console.log("newMotorId", newMotorId);
+    // console.log("newOwnerId", newOwnerId);
+    await request(app).delete(`/api/v1/examination/${newExamId}`)
       .then(async () => {
-        request(app)
-          .delete(`/api/v1/motor-vehicle-owner/${newOwnerId}`)
-          .then(async () => {
-            request(app).delete(`/api/v1/examination/${newExamId}`);
-          });
-      });
+        await request(app).delete(`/api/v1/motor-vehicle/${newMotorId}`)
+      }).then(async () => {
+        await request(app).delete(`/api/v1/motor-vehicle-owner/${newOwnerId}`)
+      })
   });
 
   it("/api/healthCheck (GET)", async function () {
@@ -149,4 +149,27 @@ describe("AppController (e2e)", () => {
       })
     );
   });
+
+
+  // it("/api/motor-vehicle-owner (POST) invalid if no name field ", async () => {
+  //   const fakeOwner = {
+  //     email: "e2eUser222222@example.com",
+  //     address: "Don Man Road No.21",
+  //     city: "Taichung City",
+  //   };
+
+  //   // test POST
+  //   const response = await request(app)
+  //     .post("/api/v1/motor-vehicle-owner")
+  //     .send(fakeOwner);
+
+  //   expect(response.status).toEqual(HttpStatus.OK);
+  //   console.log("response", response);
+  //   // newOwnerId = response.body.id;
+  //   // console.log("newOwnerId", newOwnerId);
+  // });
+
+
+
+
 });
