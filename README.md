@@ -64,3 +64,8 @@ npm run test:coverage
 ```bash
 npm run test:e2e:docker
 ```
+
+
+## Current test coverage
+<img src="./test/tmp/cov_test.png" width="560" height="440"/>
+<img src="./test/tmp/e2e_test.png" width="500" height="280"/>
