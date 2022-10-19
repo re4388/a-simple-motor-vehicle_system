@@ -67,5 +67,9 @@ npm run test:e2e:docker
 
 
 ## Current test coverage
-<img src="./test/tmp/cov_test.png" width="560" height="440"/>
-<img src="./test/tmp/e2e_test.png" width="500" height="280"/>
+<img src="./pics/cov_test.png" width="560" height="440"/>
+<img src="./pics/e2e_test.png" width="500" height="280"/>
+
+
+## ER Diagram
+<img src="./pics/er_diagram.png" width="780" height="280"/>
