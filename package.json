@@ -42,7 +42,8 @@
     "fix:ts": "npm run lint:ts -- --fix",
     "build": "run-s build:*",
     "build:nest": "nest build",
-    "pre:dev": "run-s clean fix build test:coverage"
+    "pre:dev": "run-s clean fix build test:coverage",
+    "prepare": "husky install"
   },
   "dependencies": {
     "@nestjs/axios": "^0.1.0",
@@ -81,7 +82,7 @@
     "@typescript-eslint/parser": "^5.0.0",
     "better-sqlite3": "^7.4.3",
     "del-cli": "^5.0.0",
-    "husky": "7.0.4",
+    "husky": "^8.0.0",
     "env-cmd": "10.1.0",
     "eslint": "^8.0.1",
     "eslint-config-prettier": "^8.3.0",
