@@ -2,4 +2,4 @@
 . "$(dirname -- "$0")/_/husky.sh"
 
 npm run pre:dev
-echo "husky check is done"
+echo "husky check is done."
