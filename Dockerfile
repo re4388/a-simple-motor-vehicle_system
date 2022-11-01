@@ -1,6 +1,6 @@
 FROM node:14.16.1
 
-# install needed nom stuff
+# install needed npm stuff
 RUN npm i -g @nestjs/cli typescript ts-node
 
 

@@ -73,3 +73,13 @@ npm run test:e2e:docker
 
 ## ER Diagram
 <img src="./pics/er_diagram.png" width="780" height="280"/>
+
+
+## TODO
+- [] handle co-current issue when update. Maybe use update for LOCK
+- [] fix create logic bug: will still return valid object if we go into catch block. Even you try to solve this by ret -2, this is not a good way, better try to get the db error code and translate to meaning log and ret to front-end
+- [] try to setup a many-to-many relationship for demo (like say we can have multiple owner for a motor-vehicle)
+- [] the way your update's DTO might not be efficient enough say you always re-create and save the whole into it. Many be try to use repo.update instead?
+
+
+
