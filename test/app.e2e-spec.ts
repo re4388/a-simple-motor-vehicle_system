@@ -1,29 +1,29 @@
-import { HttpStatus } from "@nestjs/common";
-import * as request from "supertest";
-import { APP_URL } from "./utils/constants";
+import { HttpStatus } from '@nestjs/common';
+import * as request from 'supertest';
+import { APP_URL } from './utils/constants';
 
-describe("AppController (e2e)", () => {
+describe('AppController (e2e)', () => {
   const app = APP_URL;
   // console.log("app", app);
 
-  it("/api/healthCheck", async function () {
-    const response = await request(app).get("/api/healthCheck");
+  it('/api/healthCheck', async function () {
+    const response = await request(app).get('/api/healthCheck');
     expect(response.status).toEqual(HttpStatus.OK);
-    expect(response.text).toEqual("Green light!");
+    expect(response.text).toEqual('Green light!');
   });
 
-  it("CRUD for motor/owner/exam (POST/PATCH/GET/DELETE)", async () => {
+  it('CRUD for motor/owner/exam (POST/PATCH/GET/DELETE)', async () => {
     ////////////////// owner ///////////////////
     const fakeOwner = {
-      name: "e2eUser",
-      email: "e2eUser@example.com",
-      address: "Don Man Road No.21",
-      city: "Taichung City",
+      name: 'e2eUser',
+      email: 'e2eUser@example.com',
+      address: 'Don Man Road No.21',
+      city: 'Taichung City',
     };
 
     // test POST
     const ownerPostResponse = await request(app)
-      .post("/api/v1/motor-vehicle-owner")
+      .post('/api/v1/motor-vehicle-owner')
       .send(fakeOwner);
 
     expect(ownerPostResponse.status).toEqual(HttpStatus.OK);
@@ -31,7 +31,7 @@ describe("AppController (e2e)", () => {
     // console.log("newOwnerId", newOwnerId);
 
     // test PATCH
-    const newAddress = "Don Man Road No.99";
+    const newAddress = 'Don Man Road No.99';
     const ownerPatchResponse = await request(app)
       .patch(`/api/v1/motor-vehicle-owner/${newOwnerId}`)
       .send({ address: newAddress });
@@ -52,15 +52,15 @@ describe("AppController (e2e)", () => {
 
     ////////////////// motor-vehicle  ///////////////////
     const fakeVehicle = {
-      licensePlateNumber: "ZZZ-999",
-      motorVehicleType: "SmallLight",
-      manufactureDate: "2021-09-09",
+      licensePlateNumber: 'ZZZ-999',
+      motorVehicleType: 'SmallLight',
+      manufactureDate: '2021-09-09',
       motorVehicleOwnerId: newOwnerId,
     };
 
     // console.log("fakeVehicle", fakeVehicle);
     const motorPostRes = await request(app)
-      .post("/api/v1/motor-vehicle")
+      .post('/api/v1/motor-vehicle')
       .send(fakeVehicle);
 
     // test POST
@@ -69,7 +69,7 @@ describe("AppController (e2e)", () => {
     // console.log("newMotorId", newMotorId);
 
     // test PATCH
-    const newLicensePlateNumber = "ZZZ-000";
+    const newLicensePlateNumber = 'ZZZ-000';
     const motorPatchRes = await request(app)
       .patch(`/api/v1/motor-vehicle/${newMotorId}`)
       .send({ licensePlateNumber: newLicensePlateNumber });
@@ -95,13 +95,13 @@ describe("AppController (e2e)", () => {
     ////////////////// exam ///////////////////
     const fakeExam = {
       mileage: 999,
-      examinationDate: "2029-09-09",
+      examinationDate: '2029-09-09',
       motorVehicleId: newMotorId,
     };
 
     // console.log("fakeExam", fakeExam);
     const examPostRes = await request(app)
-      .post("/api/v1/examination")
+      .post('/api/v1/examination')
       .send(fakeExam);
 
     // test POST
@@ -155,139 +155,139 @@ describe("AppController (e2e)", () => {
     expect(motorGetRes2.body).toEqual({});
   });
 
-  it("/api/v1/motor-vehicle-owner (POST) BAD_REQUEST when no name field ", async () => {
+  it('/api/v1/motor-vehicle-owner (POST) BAD_REQUEST when no name field ', async () => {
     const fakeOwner = {
-      email: "e2eUser@example.com",
-      address: "Don Man Road No.21",
-      city: "Taichung City",
+      email: 'e2eUser@example.com',
+      address: 'Don Man Road No.21',
+      city: 'Taichung City',
     };
     // test POST
     const response = await request(app)
-      .post("/api/v1/motor-vehicle-owner")
+      .post('/api/v1/motor-vehicle-owner')
       .send(fakeOwner);
 
     expect(response.status).toEqual(HttpStatus.BAD_REQUEST);
-    expect(response.body.message[0]).toEqual("name should not be empty");
+    expect(response.body.message[0]).toEqual('name should not be empty');
   });
 
-  it("/api/v1/motor-vehicle-owner (POST) BAD_REQUEST when no email field ", async () => {
+  it('/api/v1/motor-vehicle-owner (POST) BAD_REQUEST when no email field ', async () => {
     const fakeOwner = {
-      name: "e2eUser",
-      address: "Don Man Road No.21",
-      city: "Taichung City",
+      name: 'e2eUser',
+      address: 'Don Man Road No.21',
+      city: 'Taichung City',
     };
     // test POST
     const response = await request(app)
-      .post("/api/v1/motor-vehicle-owner")
+      .post('/api/v1/motor-vehicle-owner')
       .send(fakeOwner);
 
     expect(response.status).toEqual(HttpStatus.BAD_REQUEST);
-    expect(response.body.message[0]).toEqual("email should not be empty");
+    expect(response.body.message[0]).toEqual('email should not be empty');
   });
 
-  it("/api/v1/motor-vehicle-owner (POST) BAD_REQUEST when no address field ", async () => {
+  it('/api/v1/motor-vehicle-owner (POST) BAD_REQUEST when no address field ', async () => {
     const fakeOwner = {
-      name: "e2eUser",
-      email: "abc@gmail.com",
-      city: "Taichung City",
+      name: 'e2eUser',
+      email: 'abc@gmail.com',
+      city: 'Taichung City',
     };
     // test POST
     const response = await request(app)
-      .post("/api/v1/motor-vehicle-owner")
+      .post('/api/v1/motor-vehicle-owner')
       .send(fakeOwner);
 
     expect(response.status).toEqual(HttpStatus.BAD_REQUEST);
-    expect(response.body.message[0]).toEqual("address should not be empty");
+    expect(response.body.message[0]).toEqual('address should not be empty');
   });
 
-  it("/api/v1/motor-vehicle-owner (POST) BAD_REQUEST when no city field ", async () => {
+  it('/api/v1/motor-vehicle-owner (POST) BAD_REQUEST when no city field ', async () => {
     const fakeOwner = {
-      name: "e2eUser",
-      address: "Don Man Road No.21",
-      email: "abc@gmail.com",
+      name: 'e2eUser',
+      address: 'Don Man Road No.21',
+      email: 'abc@gmail.com',
     };
     // test POST
     const response = await request(app)
-      .post("/api/v1/motor-vehicle-owner")
+      .post('/api/v1/motor-vehicle-owner')
       .send(fakeOwner);
 
     expect(response.status).toEqual(HttpStatus.BAD_REQUEST);
-    expect(response.body.message[0]).toEqual("city should not be empty");
+    expect(response.body.message[0]).toEqual('city should not be empty');
   });
 
-  it("/api/v1/motor-vehicle-owner (POST) BAD_REQUEST when email is not valid ", async () => {
+  it('/api/v1/motor-vehicle-owner (POST) BAD_REQUEST when email is not valid ', async () => {
     const fakeOwner = {
-      name: "e2eUser",
-      address: "Don Man Road No.21",
-      email: "this is not valid email",
-      city: "Taichung City",
+      name: 'e2eUser',
+      address: 'Don Man Road No.21',
+      email: 'this is not valid email',
+      city: 'Taichung City',
     };
     // test POST
     const response = await request(app)
-      .post("/api/v1/motor-vehicle-owner")
+      .post('/api/v1/motor-vehicle-owner')
       .send(fakeOwner);
 
     expect(response.status).toEqual(HttpStatus.BAD_REQUEST);
-    expect(response.body.message[0]).toEqual("email must be an email");
+    expect(response.body.message[0]).toEqual('email must be an email');
   });
 
-  it("/api/v1/motor-vehicle-owner (POST) BAD_REQUEST when email is duplicated ", async () => {
+  it('/api/v1/motor-vehicle-owner (POST) BAD_REQUEST when email is duplicated ', async () => {
     const fakeOwner = {
-      name: "e2eUserV2",
-      address: "Don Man Road No.21",
-      email: "aaa@gmail.com",
-      city: "Taichung City",
+      name: 'e2eUserV2',
+      address: 'Don Man Road No.21',
+      email: 'aaa@gmail.com',
+      city: 'Taichung City',
     };
 
     const response1 = await request(app)
-      .post("/api/v1/motor-vehicle-owner")
+      .post('/api/v1/motor-vehicle-owner')
       .send(fakeOwner);
     const e2eUserV2Id = response1.body.id;
 
     const response2 = await request(app)
-      .post("/api/v1/motor-vehicle-owner")
+      .post('/api/v1/motor-vehicle-owner')
       .send(fakeOwner);
 
     expect(response2.status).toEqual(HttpStatus.BAD_REQUEST);
-    expect(response2.body.message[0]).toEqual("emailAlreadyExists");
+    expect(response2.body.message[0]).toEqual('emailAlreadyExists');
 
     // clear up db
     await request(app).delete(`/api/v1/motor-vehicle-owner/${e2eUserV2Id}`);
   });
 
-  it("/api/v1/motor-vehicle (POST) BAD_REQUEST when duplicated licensePlateNumber field ", async () => {
+  it('/api/v1/motor-vehicle (POST) BAD_REQUEST when duplicated licensePlateNumber field ', async () => {
     const fakeOwner = {
-      name: "e2eUserV2",
-      address: "Don Man Road No.21",
-      email: "aaa@gmail.com",
-      city: "Taichung City",
+      name: 'e2eUserV2',
+      address: 'Don Man Road No.21',
+      email: 'aaa@gmail.com',
+      city: 'Taichung City',
     };
 
     const response0 = await request(app)
-      .post("/api/v1/motor-vehicle-owner")
+      .post('/api/v1/motor-vehicle-owner')
       .send(fakeOwner);
     const e2eUserV2Id = response0.body.id;
 
     const fakeVehicle = {
-      licensePlateNumber: "QQQ-999",
-      motorVehicleType: "SmallLight",
-      manufactureDate: "2021-09-09",
+      licensePlateNumber: 'QQQ-999',
+      motorVehicleType: 'SmallLight',
+      manufactureDate: '2021-09-09',
       motorVehicleOwnerId: e2eUserV2Id,
     };
 
     // console.log("fakeVehicle", fakeVehicle);
     const response1 = await request(app)
-      .post("/api/v1/motor-vehicle")
+      .post('/api/v1/motor-vehicle')
       .send(fakeVehicle);
 
     const vehicleId = response1.body.id;
 
     const response2 = await request(app)
-      .post("/api/v1/motor-vehicle")
+      .post('/api/v1/motor-vehicle')
       .send(fakeVehicle);
 
     expect(response2.body.message[0]).toEqual(
-      "licensePlateNumberAlreadyExists"
+      'licensePlateNumberAlreadyExists'
     );
 
     // clear up
@@ -298,78 +298,78 @@ describe("AppController (e2e)", () => {
       });
   });
 
-  it("/api/v1/motor-vehicle (POST) BAD_REQUEST when UUID is invalid", async () => {
+  it('/api/v1/motor-vehicle (POST) BAD_REQUEST when UUID is invalid', async () => {
     const fakeOwner = {
-      name: "e2eUserV2",
-      address: "Don Man Road No.21",
-      email: "aaa@gmail.com",
-      city: "Taichung City",
+      name: 'e2eUserV2',
+      address: 'Don Man Road No.21',
+      email: 'aaa@gmail.com',
+      city: 'Taichung City',
     };
 
     const response0 = await request(app)
-      .post("/api/v1/motor-vehicle-owner")
+      .post('/api/v1/motor-vehicle-owner')
       .send(fakeOwner);
     const e2eUserV2Id = response0.body.id;
 
-    const inValidUUID = e2eUserV2Id + "-XX";
+    const inValidUUID = e2eUserV2Id + '-XX';
     const fakeVehicle = {
-      licensePlateNumber: "QQQ-999",
-      motorVehicleType: "SmallLight",
-      manufactureDate: "2021-09-09",
+      licensePlateNumber: 'QQQ-999',
+      motorVehicleType: 'SmallLight',
+      manufactureDate: '2021-09-09',
       motorVehicleOwnerId: inValidUUID,
     };
 
     // console.log("fakeVehicle", fakeVehicle);
     const response1 = await request(app)
-      .post("/api/v1/motor-vehicle")
+      .post('/api/v1/motor-vehicle')
       .send(fakeVehicle);
 
-    expect(response1.body.message[0]).toEqual("mustBeValidUUID");
+    expect(response1.body.message[0]).toEqual('mustBeValidUUID');
 
     // clear up
     await request(app).delete(`/api/v1/motor-vehicle-owner/${e2eUserV2Id}`);
   });
 
-  it("/api/v1/examination (POST) BAD_REQUEST when mileage is invalid", async () => {
+  it('/api/v1/examination (POST) BAD_REQUEST when mileage is invalid', async () => {
     const fakeOwner = {
-      name: "e2eUserV2",
-      address: "Don Man Road No.21",
-      email: "aaa@gmail.com",
-      city: "Taichung City",
+      name: 'e2eUserV2',
+      address: 'Don Man Road No.21',
+      email: 'aaa@gmail.com',
+      city: 'Taichung City',
     };
 
     const response0 = await request(app)
-      .post("/api/v1/motor-vehicle-owner")
+      .post('/api/v1/motor-vehicle-owner')
       .send(fakeOwner);
     const e2eUserV2Id = response0.body.id;
 
     const fakeVehicle = {
-      licensePlateNumber: "QQQ-999",
-      motorVehicleType: "SmallLight",
-      manufactureDate: "2021-09-09",
+      licensePlateNumber: 'QQQ-999',
+      motorVehicleType: 'SmallLight',
+      manufactureDate: '2021-09-09',
       motorVehicleOwnerId: e2eUserV2Id,
     };
 
     // console.log("fakeVehicle", fakeVehicle);
     const response1 = await request(app)
-      .post("/api/v1/motor-vehicle")
+      .post('/api/v1/motor-vehicle')
       .send(fakeVehicle);
 
     const vehicleId = response1.body.id;
 
     const fakeExam = {
       mileage: -3,
-      examinationDate: "2029-09-09",
+      examinationDate: '2029-09-09',
       motorVehicleId: vehicleId,
     };
 
     // console.log("fakeExam", fakeExam);
     const examPostRes = await request(app)
-      .post("/api/v1/examination")
+      .post('/api/v1/examination')
       .send(fakeExam);
 
     expect(examPostRes.body.message[0]).toEqual(
-      "mileage must not be less than 0"
+      'mileage must not be less than 0'
     );
 
     // clear up

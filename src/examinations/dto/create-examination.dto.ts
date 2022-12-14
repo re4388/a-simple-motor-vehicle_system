@@ -1,11 +1,11 @@
-import { ApiProperty } from "@nestjs/swagger";
-import { Type } from "class-transformer";
-import { IsInt, IsNotEmpty, Max, Min, Validate } from "class-validator";
-import { isUUID } from "../../utils/validators/is-uuid-valid";
+import { ApiProperty } from '@nestjs/swagger';
+import { Type } from 'class-transformer';
+import { IsInt, IsNotEmpty, Max, Min, Validate } from 'class-validator';
+import { isUUID } from '../../utils/validators/is-uuid-valid';
 
 export class CreateExaminationDto {
   @ApiProperty({
-    example: "2321",
+    example: '2321',
     required: true,
   })
   @IsNotEmpty()
@@ -15,7 +15,7 @@ export class CreateExaminationDto {
   mileage: number;
 
   @ApiProperty({
-    example: "2022-01-01",
+    example: '2022-01-01',
     required: true,
   })
   @IsNotEmpty()
@@ -23,12 +23,12 @@ export class CreateExaminationDto {
   examinationDate: Date;
 
   @ApiProperty({
-    example: "12c3746e-7d15-418f-a883-ca4869bca372",
-    description: "motorVehicle id",
+    example: '12c3746e-7d15-418f-a883-ca4869bca372',
+    description: 'motorVehicle id',
     required: true,
   })
   @Validate(isUUID, {
-    message: "mustBeValidUUID",
+    message: 'mustBeValidUUID',
   })
   @IsNotEmpty()
   motorVehicleId: string;

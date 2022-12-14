@@ -65,27 +65,23 @@ npm run test:coverage
 npm run test:e2e:docker
 ```
 
-
 ## Current test coverage
+
 <img src="./pics/cov_test.png" width="560" height="440"/>
 <img src="./pics/e2e_test.png" width="500" height="280"/>
 
-
 ## ER Diagram
+
 <img src="./pics/er_diagram.png" width="780" height="280"/>
 
-
 ## To-Fix
+
 - [] handle co-current issue when update
-    Maybe use update for LOCK
+  Maybe use update for LOCK
 - [] fix create logic bug: will still return valid object if we go into catch block. Even you try to solve this by ret -2, this is not a good way, better try to get the db error code and translate to meaning log and ret to front-end
 - [] fix update logic bug: this need to and a lock
 
-
-
 # To try and improve
+
 - [] try to setup a many-to-many relationship for demo (like say we can have multiple owner for a motor-vehicle)
 - [] the way your update's DTO might not be efficient enough say you always re-create and save the whole into it. Many be try to use repo.update instead?
-
-
-

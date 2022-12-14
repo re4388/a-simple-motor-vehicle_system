@@ -1,20 +1,20 @@
-import { createMock } from "@golevelup/ts-jest";
-import { Logger } from "@nestjs/common";
-import { Test, TestingModule } from "@nestjs/testing";
-import { getRepositoryToken } from "@nestjs/typeorm";
-import { DataSource, Repository } from "typeorm";
+import { createMock } from '@golevelup/ts-jest';
+import { Logger } from '@nestjs/common';
+import { Test, TestingModule } from '@nestjs/testing';
+import { getRepositoryToken } from '@nestjs/typeorm';
+import { DataSource, Repository } from 'typeorm';
 import {
   createQueryRunner,
   exam1,
   owner,
   vehicle,
-} from "../../../../test/unittest-mock-data";
-import { Examination } from "../../../examinations/entities/examination.entity";
-import { MotorVehicleOwner } from "../../../motor-vehicle-owners/entities/motor-vehicle-owner.entity";
-import { MotorVehicle } from "../../../motor-vehicles/entities/motor-vehicle.entity";
-import { SeedService } from "./seed.service";
+} from '../../../../test/unittest-mock-data';
+import { Examination } from '../../../examinations/entities/examination.entity';
+import { MotorVehicleOwner } from '../../../motor-vehicle-owners/entities/motor-vehicle-owner.entity';
+import { MotorVehicle } from '../../../motor-vehicles/entities/motor-vehicle.entity';
+import { SeedService } from './seed.service';
 
-describe("SeedService", () => {
+describe('SeedService', () => {
   let service: SeedService;
   const examRepo = createMock<Repository<Examination>>();
   const motorRepo = createMock<Repository<MotorVehicle>>();
@@ -56,11 +56,11 @@ describe("SeedService", () => {
     jest.resetAllMocks();
   });
 
-  it("should be defined", () => {
+  it('should be defined', () => {
     expect(service).toBeDefined();
   });
 
-  it("run seed", async () => {
+  it('run seed', async () => {
     motorRepo.count = jest.fn().mockResolvedValueOnce(0);
     ownerRepo.count = jest.fn().mockResolvedValueOnce(0);
     examRepo.count = jest.fn().mockResolvedValueOnce(0);
@@ -79,7 +79,7 @@ describe("SeedService", () => {
     expect(examRepo.save).toBeCalled();
   });
 
-  it("run seed with db already having data", async () => {
+  it('run seed with db already having data', async () => {
     motorRepo.count = jest.fn().mockResolvedValueOnce(1);
     await service.run();
     expect(dataSourceMock.createQueryRunner).not.toBeCalled();

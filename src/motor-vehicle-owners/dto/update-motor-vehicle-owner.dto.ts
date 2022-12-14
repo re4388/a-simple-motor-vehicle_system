@@ -1,14 +1,14 @@
-import { PartialType } from "@nestjs/mapped-types";
-import { ApiProperty } from "@nestjs/swagger";
-import { Transform } from "class-transformer";
-import { IsEmail, IsNotEmpty, IsOptional } from "class-validator";
-import { CreateMotorVehicleOwnerDto } from "./create-motor-vehicle-owner.dto";
+import { PartialType } from '@nestjs/mapped-types';
+import { ApiProperty } from '@nestjs/swagger';
+import { Transform } from 'class-transformer';
+import { IsEmail, IsNotEmpty, IsOptional } from 'class-validator';
+import { CreateMotorVehicleOwnerDto } from './create-motor-vehicle-owner.dto';
 
 export class UpdateMotorVehicleOwnerDto extends PartialType(
   CreateMotorVehicleOwnerDto
 ) {
   @ApiProperty({
-    example: "Ben Hu",
+    example: 'Ben Hu',
     required: true,
   })
   @IsNotEmpty()
@@ -19,7 +19,7 @@ export class UpdateMotorVehicleOwnerDto extends PartialType(
   //     message: 'emailAlreadyExists',
   // })
   @ApiProperty({
-    example: "test1@example.com",
+    example: 'test1@example.com',
     required: true,
   })
   @Transform(({ value }) => value?.toLowerCase().trim())
@@ -28,14 +28,14 @@ export class UpdateMotorVehicleOwnerDto extends PartialType(
   email?: string;
 
   @ApiProperty({
-    example: "Don Man Road No.21",
+    example: 'Don Man Road No.21',
     required: true,
   })
   @IsOptional()
   address?: string;
 
   @ApiProperty({
-    example: "New Taipei City",
+    example: 'New Taipei City',
     required: true,
   })
   @IsOptional()

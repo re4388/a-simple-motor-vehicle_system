@@ -1,11 +1,11 @@
 import {
   ValidatorConstraint,
   ValidatorConstraintInterface,
-} from "class-validator";
-import { DataSource } from "typeorm";
-import { ValidationArguments } from "class-validator/types/validation/ValidationArguments";
-import { Injectable } from "@nestjs/common";
-import { InjectDataSource } from "@nestjs/typeorm";
+} from 'class-validator';
+import { DataSource } from 'typeorm';
+import { ValidationArguments } from 'class-validator/types/validation/ValidationArguments';
+import { Injectable } from '@nestjs/common';
+import { InjectDataSource } from '@nestjs/typeorm';
 
 type ValidationEntity =
   | {
@@ -14,7 +14,7 @@ type ValidationEntity =
   | undefined;
 
 @Injectable()
-@ValidatorConstraint({ name: "IsNotExist", async: true })
+@ValidatorConstraint({ name: 'IsNotExist', async: true })
 export class IsNotExist implements ValidatorConstraintInterface {
   constructor(
     @InjectDataSource()

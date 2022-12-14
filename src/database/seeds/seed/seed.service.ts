@@ -1,10 +1,10 @@
-import { Injectable } from "@nestjs/common";
-import { InjectRepository } from "@nestjs/typeorm";
-import { Repository } from "typeorm";
-import { Examination } from "../../../examinations/entities/examination.entity";
-import { DataSource } from "typeorm";
-import { MotorVehicle } from "../../../motor-vehicles/entities/motor-vehicle.entity";
-import { MotorVehicleOwner } from "../../../motor-vehicle-owners/entities/motor-vehicle-owner.entity";
+import { Injectable } from '@nestjs/common';
+import { InjectRepository } from '@nestjs/typeorm';
+import { Repository } from 'typeorm';
+import { Examination } from '../../../examinations/entities/examination.entity';
+import { DataSource } from 'typeorm';
+import { MotorVehicle } from '../../../motor-vehicles/entities/motor-vehicle.entity';
+import { MotorVehicleOwner } from '../../../motor-vehicle-owners/entities/motor-vehicle-owner.entity';
 
 @Injectable()
 export class SeedService {
@@ -28,7 +28,7 @@ export class SeedService {
     const countOwner = await this.ownerRepo.count();
 
     if (countExam !== 0 || countVehicle !== 0 || countOwner !== 0) {
-      console.log("The db is not empty, initial seeding is abort");
+      console.log('The db is not empty, initial seeding is abort');
       return;
     }
 
@@ -38,47 +38,47 @@ export class SeedService {
 
     try {
       const motorVehicleOwner = this.ownerRepo.create({
-        name: "Ben Hu",
-        address: "Chung Shin Road, Apple street, No.3",
-        email: "ben_hu@abc.com",
-        city: "Tainan",
+        name: 'Ben Hu',
+        address: 'Chung Shin Road, Apple street, No.3',
+        email: 'ben_hu@abc.com',
+        city: 'Tainan',
       });
 
       await this.ownerRepo.save(motorVehicleOwner);
 
       const motorVehicle0 = this.vehicleRepo.create({
-        licensePlateNumber: "ABC-123",
-        motorVehicleType: "SmallLight",
-        manufactureDate: new Date("2022-01-01T00:30:00.000Z"),
+        licensePlateNumber: 'ABC-123',
+        motorVehicleType: 'SmallLight',
+        manufactureDate: new Date('2022-01-01T00:30:00.000Z'),
         motorVehicleOwner: motorVehicleOwner,
       });
 
       const motorVehicle1 = this.vehicleRepo.create({
-        licensePlateNumber: "XYZ-987",
-        motorVehicleType: "BigHeavy",
-        manufactureDate: new Date("2022-01-02T00:30:00.000Z"),
+        licensePlateNumber: 'XYZ-987',
+        motorVehicleType: 'BigHeavy',
+        manufactureDate: new Date('2022-01-02T00:30:00.000Z'),
         motorVehicleOwner: motorVehicleOwner,
       });
 
       await this.vehicleRepo.save([motorVehicle0, motorVehicle1]);
 
       const examination00 = this.examRepo.create({
-        examinationDate: new Date("2022-02-01T00:30:00.000Z"),
+        examinationDate: new Date('2022-02-01T00:30:00.000Z'),
         mileage: 100,
         motorVehicle: motorVehicle0,
       });
       const examination01 = this.examRepo.create({
-        examinationDate: new Date("2022-03-01T00:30:00.000Z"),
+        examinationDate: new Date('2022-03-01T00:30:00.000Z'),
         mileage: 200,
         motorVehicle: motorVehicle0,
       });
       const examination10 = this.examRepo.create({
-        examinationDate: new Date("2022-04-01T00:30:00.000Z"),
+        examinationDate: new Date('2022-04-01T00:30:00.000Z'),
         mileage: 1000,
         motorVehicle: motorVehicle1,
       });
       const examination11 = this.examRepo.create({
-        examinationDate: new Date("2022-05-01T00:30:00.000Z"),
+        examinationDate: new Date('2022-05-01T00:30:00.000Z'),
         mileage: 2000,
         motorVehicle: motorVehicle1,
       });
@@ -94,7 +94,7 @@ export class SeedService {
       await queryRunner.rollbackTransaction();
     } finally {
       await queryRunner.release();
-      console.log("finished seeding");
+      console.log('finished seeding');
     }
   }
 }
