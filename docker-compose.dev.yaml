@@ -10,3 +10,8 @@ services:
       - ./data:/var/lib/postgresql/data
     ports:
       - 5491:5432
+  redis:
+    image: redis:4.0.14-alpine
+    container_name: redis-simpleMotor
+    ports:
+      - '7378:6379'

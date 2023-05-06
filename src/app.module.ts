@@ -12,9 +12,21 @@ import databaseConfig from "./config/database.config";
 import appConfig from "./config/app.config";
 import { LoggerMiddleware } from "./middleware/logger.middleware";
 import { PostModule } from "./post/post.module";
+import { ScheduleModule } from "@nestjs/schedule";
+import { CronJobService } from "./cron-job/cron-job.service";
+import { BullModule } from "@nestjs/bull";
+import { AudioModule } from "./audio/audio.module";
 
 @Module({
   imports: [
+    BullModule.forRoot({
+      redis: {
+        host: "localhost",
+        port: 7378,
+      },
+      prefix: "queue-",
+    }),
+    ScheduleModule.forRoot(),
     ConfigModule.forRoot({
       isGlobal: true,
       load: [databaseConfig, appConfig],
@@ -31,9 +43,10 @@ import { PostModule } from "./post/post.module";
     ExaminationModule,
     MotorVehicleOwnerModule,
     PostModule,
+    AudioModule,
   ],
   controllers: [AppController],
-  providers: [AppService],
+  providers: [AppService, CronJobService],
 })
 export class AppModule implements NestModule {
   configure(consumer: MiddlewareConsumer) {

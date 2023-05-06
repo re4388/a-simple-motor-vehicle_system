@@ -1,14 +1,14 @@
-import { Injectable } from "@nestjs/common";
+import { Logger, Injectable } from "@nestjs/common";
 import { CreatePostDto } from "./dto/create-post.dto";
 import { UpdatePostDto } from "./dto/update-post.dto";
 import { HttpService } from "@nestjs/axios";
-import { z } from "zod";
 import { catchError, firstValueFrom } from "rxjs";
 import { AxiosError } from "axios";
 import { InjectRepository } from "@nestjs/typeorm";
 import { DataSource, ILike, Repository } from "typeorm";
 import { PostEntity } from "./entities/post.entity";
 import * as crypto from "crypto";
+import { z } from "zod";
 
 const PostSchema = z.object({
   userId: z.number(),
@@ -21,6 +21,7 @@ type Post = z.infer<typeof PostSchema>;
 
 @Injectable()
 export class PostService {
+  private readonly logger = new Logger(PostService.name);
   constructor(
     @InjectRepository(PostEntity)
     private repo: Repository<PostEntity>,
@@ -39,6 +40,7 @@ export class PostService {
   }
 
   async findTop3() {
+    this.logger.debug("findTop3");
     const selectCol = ["p.userId", "p.postId", "p.title", "p.body"];
     return await this.repo
       .createQueryBuilder("p")
@@ -48,6 +50,7 @@ export class PostService {
   }
 
   async searchInBody(searchTerm: string) {
+    this.logger.debug("searchInBody", searchTerm);
     const results = await this.repo.find({
       where: { body: ILike(`%${searchTerm}%`) },
     });
@@ -55,6 +58,7 @@ export class PostService {
   }
 
   async findOne(getCriteria: { userId: string; postId: string }) {
+    this.logger.debug("findOne", JSON.stringify(getCriteria));
     return await this.repo.find({
       where: {
         userId: getCriteria.userId,
@@ -64,6 +68,7 @@ export class PostService {
   }
 
   async update(updatePostDto: UpdatePostDto) {
+    this.logger.debug("update", JSON.stringify(updatePostDto));
     const updateFn = async () => {
       await this.repo.update(
         {
@@ -81,6 +86,7 @@ export class PostService {
   }
 
   async remove(removeCriteria: { userId: string; postId: string }) {
+    this.logger.debug("remove", JSON.stringify(removeCriteria));
     const updateResult = await this.repo.softDelete({
       userId: removeCriteria.userId,
       postId: removeCriteria.postId,
@@ -93,6 +99,7 @@ export class PostService {
   }
 
   async getFromExternal() {
+    this.logger.debug("getFromExternal");
     const { data: postList } = await firstValueFrom(
       this.httpService
         .get<Post[]>("https://jsonplaceholder.typicode.com/posts", {
@@ -122,6 +129,7 @@ export class PostService {
   }
 
   async _transactionHelper(fn: Function) {
+    this.logger.debug("_transactionHelper");
     const queryRunner = this.dataSource.createQueryRunner();
     await queryRunner.connect();
     await queryRunner.startTransaction();
