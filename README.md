@@ -105,10 +105,6 @@ npm run test:e2e:docker
 
 
 
-## feat2
-- simulate each job need to run 10 sec
-- control how many task can in a queue? what can I control?
-- how much cocurrency I allow?
 
 
 
