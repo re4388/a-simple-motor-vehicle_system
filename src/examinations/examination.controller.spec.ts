@@ -1,14 +1,14 @@
-import { HttpStatus } from "@nestjs/common";
-import { Test, TestingModule } from "@nestjs/testing";
+import { HttpStatus } from '@nestjs/common';
+import { Test, TestingModule } from '@nestjs/testing';
 import {
   createExamDto,
   exam1,
   updateExamDto,
-} from "../../test/unittest-mock-data";
-import { ExaminationController } from "./examination.controller";
-import { ExaminationService } from "./examination.service";
+} from '../../test/unittest-mock-data';
+import { ExaminationController } from './examination.controller';
+import { ExaminationService } from './examination.service';
 
-describe("ExaminationController", () => {
+describe('ExaminationController', () => {
   let controller: ExaminationController;
 
   const serviceMock = {
@@ -32,11 +32,11 @@ describe("ExaminationController", () => {
     controller = module.get<ExaminationController>(ExaminationController);
   });
 
-  it("should be defined", () => {
+  it('should be defined', () => {
     expect(controller).toBeDefined();
   });
 
-  it("create owner", async () => {
+  it('create owner', async () => {
     serviceMock.create = jest.fn().mockReturnValueOnce(exam1);
     const res = {
       status: jest.fn().mockImplementationOnce(() => {
@@ -49,7 +49,7 @@ describe("ExaminationController", () => {
     expect(res.status).toBeCalledWith(HttpStatus.OK);
   });
 
-  it("create owner when motor vehicle does not exit", async () => {
+  it('create owner when motor vehicle does not exit', async () => {
     serviceMock.create = jest.fn().mockReturnValueOnce(-1);
     const res = {
       status: jest.fn().mockImplementationOnce(() => {
@@ -62,7 +62,7 @@ describe("ExaminationController", () => {
     expect(res.status).toBeCalledWith(HttpStatus.NOT_FOUND);
   });
 
-  it("update exam", async () => {
+  it('update exam', async () => {
     serviceMock.update = jest.fn().mockReturnValueOnce(exam1);
     const res = {
       status: jest.fn().mockImplementationOnce(() => {
@@ -71,18 +71,18 @@ describe("ExaminationController", () => {
         };
       }),
     };
-    await controller.update("dummyID", <any>res, updateExamDto);
+    await controller.update('dummyID', <any>res, updateExamDto);
     expect(res.status).toBeCalledWith(HttpStatus.OK);
   });
 
-  it("get by id", async () => {
-    const dummyID = "dummyID";
+  it('get by id', async () => {
+    const dummyID = 'dummyID';
     await controller.findOne(dummyID);
     expect(serviceMock.findOne).toBeCalledWith({ id: dummyID });
   });
 
-  it("remove by id", async () => {
-    const dummyID = "dummyID";
+  it('remove by id', async () => {
+    const dummyID = 'dummyID';
     await controller.remove(dummyID);
     expect(serviceMock.delete).toBeCalledWith(dummyID);
   });

@@ -1,10 +1,10 @@
-import { Test, TestingModule } from "@nestjs/testing";
-import { createMock } from "@golevelup/ts-jest";
-import { MotorVehicleService } from "./motor-vehicle.service";
-import { getRepositoryToken } from "@nestjs/typeorm";
-import { MotorVehicleOwner } from "../motor-vehicle-owners/entities/motor-vehicle-owner.entity";
-import { DataSource, Repository } from "typeorm";
-import { MotorVehicle } from "./entities/motor-vehicle.entity";
+import { Test, TestingModule } from '@nestjs/testing';
+import { createMock } from '@golevelup/ts-jest';
+import { MotorVehicleService } from './motor-vehicle.service';
+import { getRepositoryToken } from '@nestjs/typeorm';
+import { MotorVehicleOwner } from '../motor-vehicle-owners/entities/motor-vehicle-owner.entity';
+import { DataSource, Repository } from 'typeorm';
+import { MotorVehicle } from './entities/motor-vehicle.entity';
 import {
   createMotorDto,
   createQueryRunner,
@@ -13,9 +13,9 @@ import {
   ownerSeed,
   updateMotorDto,
   vehicle,
-} from "../../test/unittest-mock-data";
+} from '../../test/unittest-mock-data';
 
-describe("MotorVehicleService", () => {
+describe('MotorVehicleService', () => {
   let service: MotorVehicleService;
   const ownerRepoMock = createMock<Repository<MotorVehicleOwner>>();
   const vehicleRepoMock = createMock<Repository<MotorVehicle>>();
@@ -49,11 +49,11 @@ describe("MotorVehicleService", () => {
     // jest.clearAllMocks();
   });
 
-  it("should be defined", () => {
+  it('should be defined', () => {
     expect(service).toBeDefined();
   });
 
-  it("create motorVehicles and can found owner", async () => {
+  it('create motorVehicles and can found owner', async () => {
     ownerRepoMock.findOne = jest.fn().mockResolvedValue(owner);
     vehicleRepoMock.create = jest.fn().mockResolvedValueOnce(vehicle);
     dataSourceMock.createQueryRunner = jest
@@ -63,7 +63,7 @@ describe("MotorVehicleService", () => {
     await service.create(createMotorDto);
 
     expect(ownerRepoMock.findOne).toBeCalledWith({
-      relations: ["motorVehicles"],
+      relations: ['motorVehicles'],
       where: { id: createMotorDto.motorVehicleOwnerId },
     });
 
@@ -92,17 +92,17 @@ describe("MotorVehicleService", () => {
     );
   });
 
-  it("create motorVehicles but can not find owner", async () => {
+  it('create motorVehicles but can not find owner', async () => {
     ownerRepoMock.findOne = jest.fn().mockResolvedValue(null);
     const res = await service.create(createMotorDto);
     expect(res).toBe(-1);
     expect(ownerRepoMock.findOne).toBeCalled();
   });
 
-  it("update motorVehicles when no licensePlateNumber conflict", async () => {
+  it('update motorVehicles when no licensePlateNumber conflict', async () => {
     vehicleRepoMock.save = jest.fn();
     vehicleRepoMock.create = jest.fn();
-    const dummyID = "dummyUUID";
+    const dummyID = 'dummyUUID';
     await service.update(dummyID, updateMotorDto);
     expect(vehicleRepoMock.save).toBeCalled();
     expect(vehicleRepoMock.create).toBeCalledWith({
@@ -111,7 +111,7 @@ describe("MotorVehicleService", () => {
     });
   });
 
-  it("no update motorVehicles when licensePlateNumber conflict", async () => {
+  it('no update motorVehicles when licensePlateNumber conflict', async () => {
     const createQueryBuilder: any = {
       where: () => createQueryBuilder,
       andWhere: () => createQueryBuilder,
@@ -121,25 +121,25 @@ describe("MotorVehicleService", () => {
     };
 
     jest
-      .spyOn(vehicleRepoMock, "createQueryBuilder")
+      .spyOn(vehicleRepoMock, 'createQueryBuilder')
       .mockImplementation(() => createQueryBuilder);
 
-    const res = await service.update("dummyUUID", updateMotorDto);
+    const res = await service.update('dummyUUID', updateMotorDto);
     expect(vehicleRepoMock.save).not.toHaveBeenCalled();
     expect(vehicleRepoMock.create).not.toHaveBeenCalled();
     expect(res).toBe(-1);
   });
 
-  it("findOne works", async () => {
+  it('findOne works', async () => {
     vehicleRepoMock.findOne = jest.fn();
-    const dummyID = "dummyID";
+    const dummyID = 'dummyID';
     await service.findOne({ id: dummyID });
     expect(vehicleRepoMock.findOne).toBeCalledWith({ where: { id: dummyID } });
   });
 
-  it("delete works", async () => {
+  it('delete works', async () => {
     vehicleRepoMock.delete = jest.fn();
-    const dummyID = "dummyID";
+    const dummyID = 'dummyID';
     await service.delete(dummyID);
     expect(vehicleRepoMock.delete).toBeCalledWith(dummyID);
   });

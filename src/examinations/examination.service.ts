@@ -1,11 +1,11 @@
-import { Injectable } from "@nestjs/common";
-import { InjectRepository } from "@nestjs/typeorm";
-import { DataSource, Repository } from "typeorm";
-import { MotorVehicle } from "../motor-vehicles/entities/motor-vehicle.entity";
-import { EntityCondition } from "../utils/types/entity-condition.type";
-import { CreateExaminationDto } from "./dto/create-examination.dto";
-import { UpdateExaminationDto } from "./dto/update-examination.dto";
-import { Examination } from "./entities/examination.entity";
+import { Injectable } from '@nestjs/common';
+import { InjectRepository } from '@nestjs/typeorm';
+import { DataSource, Repository } from 'typeorm';
+import { MotorVehicle } from '../motor-vehicles/entities/motor-vehicle.entity';
+import { EntityCondition } from '../utils/types/entity-condition.type';
+import { CreateExaminationDto } from './dto/create-examination.dto';
+import { UpdateExaminationDto } from './dto/update-examination.dto';
+import { Examination } from './entities/examination.entity';
 
 @Injectable()
 export class ExaminationService {
@@ -22,7 +22,7 @@ export class ExaminationService {
       where: {
         id: dto.motorVehicleId,
       },
-      relations: ["examinations"],
+      relations: ['examinations'],
     });
     if (!motorVehicle) return -1;
 

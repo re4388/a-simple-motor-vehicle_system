@@ -1,37 +1,37 @@
-import { MotorVehicleTypeEnum } from "../src/common/enum";
-import { CreateExaminationDto } from "../src/examinations/dto/create-examination.dto";
-import { UpdateExaminationDto } from "../src/examinations/dto/update-examination.dto";
-import { Examination } from "../src/examinations/entities/examination.entity";
-import { CreateMotorVehicleOwnerDto } from "../src/motor-vehicle-owners/dto/create-motor-vehicle-owner.dto";
-import { UpdateMotorVehicleOwnerDto } from "../src/motor-vehicle-owners/dto/update-motor-vehicle-owner.dto";
-import { MotorVehicleOwner } from "../src/motor-vehicle-owners/entities/motor-vehicle-owner.entity";
-import { CreateMotorVehicleDto } from "../src/motor-vehicles/dto/create-motor-vehicle.dto";
-import { UpdateMotorVehicleDto } from "../src/motor-vehicles/dto/update-motor-vehicle.dto";
-import { MotorVehicle } from "../src/motor-vehicles/entities/motor-vehicle.entity";
+import { MotorVehicleTypeEnum } from '../src/common/enum';
+import { CreateExaminationDto } from '../src/examinations/dto/create-examination.dto';
+import { UpdateExaminationDto } from '../src/examinations/dto/update-examination.dto';
+import { Examination } from '../src/examinations/entities/examination.entity';
+import { CreateMotorVehicleOwnerDto } from '../src/motor-vehicle-owners/dto/create-motor-vehicle-owner.dto';
+import { UpdateMotorVehicleOwnerDto } from '../src/motor-vehicle-owners/dto/update-motor-vehicle-owner.dto';
+import { MotorVehicleOwner } from '../src/motor-vehicle-owners/entities/motor-vehicle-owner.entity';
+import { CreateMotorVehicleDto } from '../src/motor-vehicles/dto/create-motor-vehicle.dto';
+import { UpdateMotorVehicleDto } from '../src/motor-vehicles/dto/update-motor-vehicle.dto';
+import { MotorVehicle } from '../src/motor-vehicles/entities/motor-vehicle.entity';
 
 const ownerSeed = {
-  name: "Ben Hu",
-  email: "ABC-123",
-  address: "home 23 road street 23",
-  city: "Tainan",
+  name: 'Ben Hu',
+  email: 'ABC-123',
+  address: 'home 23 road street 23',
+  city: 'Tainan',
 };
 
 const motorVehicleSeed1 = {
-  licensePlateNumber: "AAA-111",
-  manufactureDate: new Date("2022-01-01T00:30:00.000Z"),
+  licensePlateNumber: 'AAA-111',
+  manufactureDate: new Date('2022-01-01T00:30:00.000Z'),
   motorVehicleType: MotorVehicleTypeEnum.BigHeavy,
-  motorVehicleOwnerId: "3bb84593-de0d-4901-b5af-d17e1d815ff4",
+  motorVehicleOwnerId: '3bb84593-de0d-4901-b5af-d17e1d815ff4',
 };
 
 const examineSeed1 = {
-  examinationDate: new Date("2022-01-01T00:30:00.000Z"),
+  examinationDate: new Date('2022-01-01T00:30:00.000Z'),
   mileage: 123,
-  motorVehicleId: "3bb84593-de0d-4901-b5af-d17e1d815ff2",
+  motorVehicleId: '3bb84593-de0d-4901-b5af-d17e1d815ff2',
 };
 const examineSeed2 = {
-  examinationDate: new Date("2022-02-01T00:30:00.000Z"),
+  examinationDate: new Date('2022-02-01T00:30:00.000Z'),
   mileage: 321,
-  motorVehicleId: "3bb84593-de0d-4901-b5af-d17e1d815ff1",
+  motorVehicleId: '3bb84593-de0d-4901-b5af-d17e1d815ff1',
 };
 
 const owner = new MotorVehicleOwner();
@@ -44,7 +44,7 @@ owner.motorVehicles = [];
 const vehicle = new MotorVehicle();
 vehicle.licensePlateNumber;
 vehicle.motorVehicleType = MotorVehicleTypeEnum.BigHeavy;
-vehicle.manufactureDate = new Date("2022-01-01T00:30:00.000Z");
+vehicle.manufactureDate = new Date('2022-01-01T00:30:00.000Z');
 vehicle.motorVehicleOwner = owner;
 vehicle.examinations = [];
 
@@ -73,7 +73,7 @@ createMotorDto.manufactureDate = motorVehicleSeed1.manufactureDate;
 createMotorDto.motorVehicleOwnerId = motorVehicleSeed1.motorVehicleOwnerId;
 
 const updateMotorDto = new UpdateMotorVehicleDto();
-updateMotorDto.licensePlateNumber = "QAX-123";
+updateMotorDto.licensePlateNumber = 'QAX-123';
 
 const creteOwnerDto = new CreateMotorVehicleOwnerDto();
 creteOwnerDto.name = ownerSeed.name;
@@ -82,7 +82,7 @@ creteOwnerDto.address = ownerSeed.address;
 creteOwnerDto.city = ownerSeed.city;
 
 const updateOwnerDto = new UpdateMotorVehicleOwnerDto();
-updateOwnerDto.city = "New Taipei";
+updateOwnerDto.city = 'New Taipei';
 
 const createExamDto = new CreateExaminationDto();
 createExamDto.examinationDate = examineSeed1.examinationDate;

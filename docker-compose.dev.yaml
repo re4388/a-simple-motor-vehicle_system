@@ -1,0 +1,12 @@
+version: '3.8'
+services:
+  db:
+    image: postgres:15
+    environment:
+      POSTGRES_USER: simpleMotor
+      POSTGRES_PASSWORD: simpleMotor
+      POSTGRES_DB: simpleMotor
+    volumes:
+      - ./data:/var/lib/postgresql/data
+    ports:
+      - 5491:5432

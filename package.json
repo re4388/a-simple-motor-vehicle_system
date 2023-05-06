@@ -7,8 +7,7 @@
   "license": "UNLICENSED",
   "scripts": {
     "typeorm": "env-cmd ts-node -r tsconfig-paths/register ./node_modules/typeorm/cli.js",
-    "migration:generate": "npm run typeorm -- --dataSource=src/database/data-source.ts migration:generate",
-    "migration:create": "npm run typeorm -- migration:create",
+    "migration:generate": "npm run typeorm -- --dataSource=src/database/data-source.ts migration:generate 'tmp/your_new_dif_in_db' ",
     "migration:run": "npm run typeorm -- --dataSource=src/database/data-source.ts migration:run",
     "migration:revert": "npm run typeorm -- --dataSource=src/database/data-source.ts migration:revert",
     "schema:drop": "npm run typeorm -- --dataSource=src/database/data-source.ts schema:drop",
@@ -46,7 +45,7 @@
     "prepare": "husky install"
   },
   "dependencies": {
-    "@nestjs/axios": "^0.1.0",
+    "@nestjs/axios": "^0.1.1",
     "@nestjs/common": "^8.0.0",
     "@nestjs/config": "^2.2.0",
     "@nestjs/core": "^8.0.0",
@@ -55,6 +54,7 @@
     "@nestjs/swagger": "^6.0.4",
     "@nestjs/typeorm": "^9.0.0",
     "@types/supertest": "2.0.12",
+    "axios": "^1.4.0",
     "class-transformer": "^0.5.1",
     "class-validator": "^0.13.2",
     "moment": "^2.29.4",
@@ -66,7 +66,8 @@
     "supertest": "6.2.4",
     "typeorm": "0.3.10",
     "typeorm-seeding": "^1.6.1",
-    "webpack": "^5.74.0"
+    "webpack": "^5.74.0",
+    "zod": "^3.21.4"
   },
   "devDependencies": {
     "@golevelup/nestjs-testing": "^0.1.2",
@@ -82,11 +83,11 @@
     "@typescript-eslint/parser": "^5.0.0",
     "better-sqlite3": "^7.4.3",
     "del-cli": "^5.0.0",
-    "husky": "^8.0.0",
     "env-cmd": "10.1.0",
     "eslint": "^8.0.1",
     "eslint-config-prettier": "^8.3.0",
     "eslint-plugin-prettier": "^4.0.0",
+    "husky": "^8.0.0",
     "jest": "28.0.3",
     "npm-run-all": "^4.1.5",
     "prettier": "^2.3.2",

@@ -10,22 +10,22 @@ import {
   HttpStatus,
   HttpCode,
   ParseUUIDPipe,
-} from "@nestjs/common";
-import { MotorVehicleService } from "./motor-vehicle.service";
-import { CreateMotorVehicleDto } from "./dto/create-motor-vehicle.dto";
-import { UpdateMotorVehicleDto } from "./dto/update-motor-vehicle.dto";
+} from '@nestjs/common';
+import { MotorVehicleService } from './motor-vehicle.service';
+import { CreateMotorVehicleDto } from './dto/create-motor-vehicle.dto';
+import { UpdateMotorVehicleDto } from './dto/update-motor-vehicle.dto';
 import {
   ApiInternalServerErrorResponse,
   ApiNotFoundResponse,
   ApiOkResponse,
   ApiTags,
-} from "@nestjs/swagger";
-import { Response } from "express";
+} from '@nestjs/swagger';
+import { Response } from 'express';
 
-@ApiTags("motor-vehicle")
+@ApiTags('motor-vehicle')
 @Controller({
-  path: "motor-vehicle",
-  version: "1",
+  path: 'motor-vehicle',
+  version: '1',
 })
 export class MotorVehicleController {
   constructor(
@@ -33,12 +33,12 @@ export class MotorVehicleController {
   ) {}
 
   @Post()
-  @ApiNotFoundResponse({ description: "If motorVehicleOwner not exist!" })
+  @ApiNotFoundResponse({ description: 'If motorVehicleOwner not exist!' })
   @ApiInternalServerErrorResponse({
-    description: "Something went wrong while place order!",
+    description: 'Something went wrong while place order!',
   })
   @ApiOkResponse({
-    description: "If createMotorVehicle successfully! return object",
+    description: 'If createMotorVehicle successfully! return object',
   })
   async create(@Res() res: Response, @Body() dto: CreateMotorVehicleDto) {
     const result = await this.motorService.create(dto);
@@ -47,7 +47,7 @@ export class MotorVehicleController {
     if (result === -1) {
       return res
         .status(HttpStatus.NOT_FOUND)
-        .send("motorVehicleOwner does not exist!");
+        .send('motorVehicleOwner does not exist!');
     }
 
     return res.status(HttpStatus.OK).send({
@@ -59,10 +59,10 @@ export class MotorVehicleController {
     });
   }
 
-  @Patch(":id")
+  @Patch(':id')
   @HttpCode(HttpStatus.OK)
   async update(
-    @Param("id") id: string,
+    @Param('id') id: string,
     @Res() res: Response,
     @Body() dto: UpdateMotorVehicleDto
   ) {
@@ -71,21 +71,21 @@ export class MotorVehicleController {
     if (result === -1) {
       return res
         .status(HttpStatus.FORBIDDEN)
-        .send("licensePlateNumberAlreadyExists");
+        .send('licensePlateNumberAlreadyExists');
     }
 
     return res.status(HttpStatus.OK).send(result);
   }
 
-  @Get(":id")
+  @Get(':id')
   @HttpCode(HttpStatus.OK)
-  findOne(@Param("id", ParseUUIDPipe) id: string) {
+  findOne(@Param('id', ParseUUIDPipe) id: string) {
     return this.motorService.findOne({ id: id });
   }
 
-  @Delete(":id")
+  @Delete(':id')
   @HttpCode(HttpStatus.OK)
-  async remove(@Param("id", ParseUUIDPipe) id: string) {
+  async remove(@Param('id', ParseUUIDPipe) id: string) {
     return await this.motorService.delete(id);
   }
 }

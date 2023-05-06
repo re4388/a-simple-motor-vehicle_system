@@ -33,4 +33,5 @@ async function bootstrap() {
   logger.log(`App is listening: ${configService.get('app.port')}`);
   await app.listen(configService.get('app.port'));
 }
+
 bootstrap();

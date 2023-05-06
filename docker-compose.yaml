@@ -2,7 +2,7 @@ version: '3'
 
 services:
   postgres:
-    container_name: wemo_dev_postgres
+    container_name: pg_dev_a_simple_motor_vehicle
     image: postgres:14.5
     ports:
       - ${DATABASE_PORT}:5432
@@ -13,14 +13,8 @@ services:
       POSTGRES_PASSWORD: ${DATABASE_PASSWORD}
       POSTGRES_DB: ${DATABASE_NAME}
 
-  adminer:
-    container_name: wemo_dev_adminer
-    image: adminer
-    ports:
-      - 8080:8080
-
   api:
-    container_name: wemo_dev_api
+    container_name: nestJS_dev_a_simple_motor_vehicle
     build:
       context: .
       dockerfile: Dockerfile

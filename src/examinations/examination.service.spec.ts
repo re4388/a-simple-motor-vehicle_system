@@ -1,7 +1,7 @@
-import { createMock } from "@golevelup/ts-jest";
-import { Test, TestingModule } from "@nestjs/testing";
-import { getRepositoryToken } from "@nestjs/typeorm";
-import { DataSource, Repository } from "typeorm";
+import { createMock } from '@golevelup/ts-jest';
+import { Test, TestingModule } from '@nestjs/testing';
+import { getRepositoryToken } from '@nestjs/typeorm';
+import { DataSource, Repository } from 'typeorm';
 import {
   createExamDto,
   createQueryRunner,
@@ -10,12 +10,12 @@ import {
   owner,
   updateExamDto,
   vehicle,
-} from "../../test/unittest-mock-data";
-import { MotorVehicle } from "../motor-vehicles/entities/motor-vehicle.entity";
-import { Examination } from "./entities/examination.entity";
-import { ExaminationService } from "./examination.service";
+} from '../../test/unittest-mock-data';
+import { MotorVehicle } from '../motor-vehicles/entities/motor-vehicle.entity';
+import { Examination } from './entities/examination.entity';
+import { ExaminationService } from './examination.service';
 
-describe("ExaminationService", () => {
+describe('ExaminationService', () => {
   let service: ExaminationService;
   const examRepo = createMock<Repository<Examination>>();
   const motorRepo = createMock<Repository<MotorVehicle>>();
@@ -47,11 +47,11 @@ describe("ExaminationService", () => {
     jest.resetAllMocks();
   });
 
-  it("should be defined", () => {
+  it('should be defined', () => {
     expect(service).toBeDefined();
   });
 
-  it("create exam and can found vehicle", async () => {
+  it('create exam and can found vehicle', async () => {
     motorRepo.findOne = jest.fn().mockResolvedValue(vehicle);
     examRepo.create = jest.fn().mockResolvedValueOnce(exam1);
     dataSourceMock.createQueryRunner = jest
@@ -61,7 +61,7 @@ describe("ExaminationService", () => {
     await service.create(createExamDto);
 
     expect(motorRepo.findOne).toBeCalledWith({
-      relations: ["examinations"],
+      relations: ['examinations'],
       where: { id: createExamDto.motorVehicleId },
     });
     expect(examRepo.create).toBeCalledWith({
@@ -85,31 +85,31 @@ describe("ExaminationService", () => {
     );
   });
 
-  it("create exam but can not find vehicle", async () => {
+  it('create exam but can not find vehicle', async () => {
     motorRepo.findOne = jest.fn().mockResolvedValue(null);
     const res = await service.create(createExamDto);
     expect(res).toBe(-1);
     expect(motorRepo.findOne).toBeCalled();
   });
 
-  it("update exam ", async () => {
+  it('update exam ', async () => {
     examRepo.save = jest.fn();
     examRepo.create = jest.fn();
-    await service.update("dummyUUID", updateExamDto);
+    await service.update('dummyUUID', updateExamDto);
     expect(examRepo.save).toBeCalled();
     expect(examRepo.create).toBeCalled();
   });
 
-  it("findOne works", async () => {
+  it('findOne works', async () => {
     examRepo.findOne = jest.fn();
-    const dummyID = "dummyID";
+    const dummyID = 'dummyID';
     await service.findOne({ id: dummyID });
     expect(examRepo.findOne).toBeCalledWith({ where: { id: dummyID } });
   });
 
-  it("delete works", async () => {
+  it('delete works', async () => {
     examRepo.delete = jest.fn();
-    const dummyID = "dummyID";
+    const dummyID = 'dummyID';
     await service.delete(dummyID);
     expect(examRepo.delete).toBeCalledWith(dummyID);
   });

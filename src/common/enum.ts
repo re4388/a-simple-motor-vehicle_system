@@ -1,8 +1,8 @@
 enum MotorVehicleTypeEnum {
-  SmallLight = "SmallLight",
-  RegularLight = "RegularLight",
-  RegularHeavy = "RegularHeavy",
-  BigHeavy = "BigHeavy",
+  SmallLight = 'SmallLight',
+  RegularLight = 'RegularLight',
+  RegularHeavy = 'RegularHeavy',
+  BigHeavy = 'BigHeavy',
 }
 
 const validMotorVehicleType = [

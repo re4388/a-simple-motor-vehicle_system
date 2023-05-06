@@ -1,5 +1,5 @@
-import "reflect-metadata";
-import { DataSource, DataSourceOptions } from "typeorm";
+import 'reflect-metadata';
+import { DataSource, DataSourceOptions } from 'typeorm';
 // console.log("__dirname", __dirname);
 
 export const AppDataSource = new DataSource({
@@ -10,15 +10,15 @@ export const AppDataSource = new DataSource({
   username: process.env.DATABASE_USERNAME,
   password: process.env.DATABASE_PASSWORD,
   database: process.env.DATABASE_NAME,
-  synchronize: process.env.DATABASE_SYNCHRONIZE === "true",
+  synchronize: process.env.DATABASE_SYNCHRONIZE === 'true',
   // dropSchema: false,
-  logging: process.env.NODE_ENV !== "production",
-  entities: [__dirname + "/../**/*.entity{.ts,.js}"],
-  migrations: [__dirname + "/migrations/**/*{.ts,.js}"],
+  logging: process.env.NODE_ENV !== 'production',
+  entities: [__dirname + '/../**/*.entity{.ts,.js}'],
+  migrations: [__dirname + '/migrations/**/*{.ts,.js}'],
   cli: {
-    entitiesDir: "src",
-    migrationsDir: "src/database/migrations",
-    subscribersDir: "subscriber",
+    entitiesDir: 'src',
+    migrationsDir: 'src/database/migrations',
+    subscribersDir: 'subscriber',
   },
   extra: {
     // based on https://node-postgres.com/api/pool

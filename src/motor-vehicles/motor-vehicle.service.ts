@@ -1,11 +1,11 @@
-import { Injectable } from "@nestjs/common";
-import { InjectRepository } from "@nestjs/typeorm";
-import { DataSource, Repository } from "typeorm";
-import { MotorVehicleOwner } from "../motor-vehicle-owners/entities/motor-vehicle-owner.entity";
-import { EntityCondition } from "../utils/types/entity-condition.type";
-import { CreateMotorVehicleDto } from "./dto/create-motor-vehicle.dto";
-import { UpdateMotorVehicleDto } from "./dto/update-motor-vehicle.dto";
-import { MotorVehicle } from "./entities/motor-vehicle.entity";
+import { Injectable } from '@nestjs/common';
+import { InjectRepository } from '@nestjs/typeorm';
+import { DataSource, Repository } from 'typeorm';
+import { MotorVehicleOwner } from '../motor-vehicle-owners/entities/motor-vehicle-owner.entity';
+import { EntityCondition } from '../utils/types/entity-condition.type';
+import { CreateMotorVehicleDto } from './dto/create-motor-vehicle.dto';
+import { UpdateMotorVehicleDto } from './dto/update-motor-vehicle.dto';
+import { MotorVehicle } from './entities/motor-vehicle.entity';
 
 @Injectable()
 export class MotorVehicleService {
@@ -22,7 +22,7 @@ export class MotorVehicleService {
       where: {
         id: dto.motorVehicleOwnerId,
       },
-      relations: ["motorVehicles"],
+      relations: ['motorVehicles'],
     });
     if (!owner) return -1;
 
@@ -61,13 +61,13 @@ export class MotorVehicleService {
   async update(id: string, dto: UpdateMotorVehicleDto) {
     const result = await this.vehicleRepo
       .createQueryBuilder()
-      .where("MotorVehicle.licensePlateNumber = :newLicensePlateNumber")
-      .andWhere("id != :refId")
+      .where('MotorVehicle.licensePlateNumber = :newLicensePlateNumber')
+      .andWhere('id != :refId')
       .setParameters({
         newLicensePlateNumber: dto.licensePlateNumber,
         refId: id,
       })
-      .select("MotorVehicle.id")
+      .select('MotorVehicle.id')
       .getRawMany();
 
     // if we have not empty result arr, meaning we have conflict

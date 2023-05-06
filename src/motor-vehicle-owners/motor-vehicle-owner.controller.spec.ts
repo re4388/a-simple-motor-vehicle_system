@@ -1,10 +1,10 @@
-import { HttpStatus } from "@nestjs/common";
-import { Test, TestingModule } from "@nestjs/testing";
-import { creteOwnerDto, owner } from "../../test/unittest-mock-data";
-import { MotorVehicleOwnerController } from "./motor-vehicle-owner.controller";
-import { MotorVehicleOwnerService } from "./motor-vehicle-owner.service";
+import { HttpStatus } from '@nestjs/common';
+import { Test, TestingModule } from '@nestjs/testing';
+import { creteOwnerDto, owner } from '../../test/unittest-mock-data';
+import { MotorVehicleOwnerController } from './motor-vehicle-owner.controller';
+import { MotorVehicleOwnerService } from './motor-vehicle-owner.service';
 
-describe("MotorVehicleOwnerController", () => {
+describe('MotorVehicleOwnerController', () => {
   let controller: MotorVehicleOwnerController;
 
   const ownerServiceMock = {
@@ -30,11 +30,11 @@ describe("MotorVehicleOwnerController", () => {
     );
   });
 
-  it("should be defined", () => {
+  it('should be defined', () => {
     expect(controller).toBeDefined();
   });
 
-  it("create owner", async () => {
+  it('create owner', async () => {
     ownerServiceMock.create = jest.fn().mockReturnValueOnce(owner);
     const res = {
       status: jest.fn().mockImplementationOnce(() => {
@@ -47,7 +47,7 @@ describe("MotorVehicleOwnerController", () => {
     expect(res.status).toBeCalledWith(HttpStatus.OK);
   });
 
-  it("update owner", async () => {
+  it('update owner', async () => {
     ownerServiceMock.update = jest.fn().mockReturnValueOnce(owner);
     const res = {
       status: jest.fn().mockImplementationOnce(() => {
@@ -57,11 +57,11 @@ describe("MotorVehicleOwnerController", () => {
       }),
     };
 
-    await controller.update("dummyID", <any>res, creteOwnerDto);
+    await controller.update('dummyID', <any>res, creteOwnerDto);
     expect(res.status).toBeCalledWith(HttpStatus.OK);
   });
 
-  it("update owner with existed email", async () => {
+  it('update owner with existed email', async () => {
     ownerServiceMock.update = jest.fn().mockReturnValueOnce(-1);
     const res = {
       status: jest.fn().mockImplementationOnce(() => {
@@ -71,18 +71,18 @@ describe("MotorVehicleOwnerController", () => {
       }),
     };
 
-    await controller.update("dummyID", <any>res, creteOwnerDto);
+    await controller.update('dummyID', <any>res, creteOwnerDto);
     expect(res.status).toBeCalledWith(HttpStatus.FORBIDDEN);
   });
 
-  it("get by id", async () => {
-    const dummyID = "dummyID";
+  it('get by id', async () => {
+    const dummyID = 'dummyID';
     await controller.findOne(dummyID);
     expect(ownerServiceMock.findOne).toBeCalledWith({ id: dummyID });
   });
 
-  it("remove by id", async () => {
-    const dummyID = "dummyID";
+  it('remove by id', async () => {
+    const dummyID = 'dummyID';
     await controller.remove(dummyID);
     expect(ownerServiceMock.delete).toBeCalledWith(dummyID);
   });

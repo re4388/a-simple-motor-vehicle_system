@@ -1,0 +1,42 @@
+
+#http://localhost:3011/docs#
+
+### getTop3
+GET localhost:3011/api/v1/post/top3
+
+###
+## get external
+GET localhost:3011/api/v1/post/external
+
+
+### create
+POST localhost:3011/api/v1/post/create
+Content-Type: application/json
+
+{
+  "userId": "qaz",
+  "postId": "wsx",
+  "title": "pppppppppppppppppppppp",
+  "body": "pppppppppppppppppppppp"
+}
+
+
+### findOne
+GET localhost:3011/api/v1/post/findOne?userId=1&postId=1
+
+
+### patch
+PATCH localhost:3011/api/v1/post/update
+Content-Type: application/json
+
+{
+  "userId": "111111111111qqqqqqqqqqqaaaaaaaaaa",
+  "postId": "bbbbbbbbbbbbb",
+  "title": "GGG",
+  "body": "GGG"
+}
+
+
+### searchInBody
+GET localhost:3011/api/v1/post/searchInBody?searchTerm=dddddddddddd
+

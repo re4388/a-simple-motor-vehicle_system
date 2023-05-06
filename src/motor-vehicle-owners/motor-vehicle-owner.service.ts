@@ -1,10 +1,10 @@
-import { Injectable } from "@nestjs/common";
-import { InjectRepository } from "@nestjs/typeorm";
-import { Repository } from "typeorm";
-import { EntityCondition } from "../utils/types/entity-condition.type";
-import { CreateMotorVehicleOwnerDto } from "./dto/create-motor-vehicle-owner.dto";
-import { UpdateMotorVehicleOwnerDto } from "./dto/update-motor-vehicle-owner.dto";
-import { MotorVehicleOwner } from "./entities/motor-vehicle-owner.entity";
+import { Injectable } from '@nestjs/common';
+import { InjectRepository } from '@nestjs/typeorm';
+import { Repository } from 'typeorm';
+import { EntityCondition } from '../utils/types/entity-condition.type';
+import { CreateMotorVehicleOwnerDto } from './dto/create-motor-vehicle-owner.dto';
+import { UpdateMotorVehicleOwnerDto } from './dto/update-motor-vehicle-owner.dto';
+import { MotorVehicleOwner } from './entities/motor-vehicle-owner.entity';
 
 @Injectable()
 export class MotorVehicleOwnerService {
@@ -26,10 +26,10 @@ export class MotorVehicleOwnerService {
   async update(id: string, dto: UpdateMotorVehicleOwnerDto) {
     const result = await this.ownerRepo
       .createQueryBuilder()
-      .where("email = :newEmail")
-      .andWhere("id != :refId")
+      .where('email = :newEmail')
+      .andWhere('id != :refId')
       .setParameters({ newEmail: dto.email, refId: id })
-      .select("MotorVehicleOwner.id")
+      .select('MotorVehicleOwner.id')
       .getRawMany();
 
     // console.log("result", result);
