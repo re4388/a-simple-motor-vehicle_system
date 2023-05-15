@@ -52,10 +52,10 @@
     "@nestjs/core": "^8.0.0",
     "@nestjs/mapped-types": "^1.1.0",
     "@nestjs/platform-express": "^8.0.0",
+    "@nestjs/platform-socket.io": "^9.4.0",
     "@nestjs/schedule": "^2.2.1",
     "@nestjs/swagger": "^6.0.4",
     "@nestjs/typeorm": "^9.0.0",
-    "@types/supertest": "2.0.12",
     "axios": "^1.4.0",
     "bull": "^4.10.4",
     "class-transformer": "^0.5.1",
@@ -66,6 +66,7 @@
     "reflect-metadata": "^0.1.13",
     "rimraf": "^3.0.2",
     "rxjs": "^7.2.0",
+    "shelljs": "^0.8.5",
     "supertest": "6.2.4",
     "typeorm": "0.3.10",
     "typeorm-seeding": "^1.6.1",
@@ -75,6 +76,8 @@
   "devDependencies": {
     "@golevelup/nestjs-testing": "^0.1.2",
     "@golevelup/ts-jest": "^0.3.3",
+    "@types/shelljs": "^0.8.12",
+    "@types/supertest": "2.0.12",
     "@nestjs/cli": "^8.0.0",
     "@nestjs/schematics": "^8.0.0",
     "@nestjs/testing": "^8.0.0",
@@ -82,7 +85,6 @@
     "@types/express": "^4.17.13",
     "@types/jest": "27.5.0",
     "@types/node": "^16.0.0",
-    "@types/supertest": "^2.0.11",
     "@typescript-eslint/eslint-plugin": "^5.0.0",
     "@typescript-eslint/parser": "^5.0.0",
     "better-sqlite3": "^7.4.3",
@@ -105,6 +107,7 @@
     "typescript": "^4.3.5"
   },
   "engines": {
-    "node": ">=14.16.1"
+    "npm": "<8.0.0",
+    "node": "^14.18.0"
   }
 }

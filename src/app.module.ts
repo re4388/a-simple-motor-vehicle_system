@@ -16,6 +16,7 @@ import { ScheduleModule } from "@nestjs/schedule";
 import { CronJobService } from "./cron-job/cron-job.service";
 import { BullModule } from "@nestjs/bull";
 import { AudioModule } from "./audio/audio.module";
+import { StressRunnerModule } from "./stress-runner/stress-runner.module";
 
 @Module({
   imports: [
@@ -24,7 +25,7 @@ import { AudioModule } from "./audio/audio.module";
         host: "localhost",
         port: 7378,
       },
-      prefix: "queue-",
+      prefix: "queue",
     }),
     ScheduleModule.forRoot(),
     ConfigModule.forRoot({
@@ -44,6 +45,7 @@ import { AudioModule } from "./audio/audio.module";
     MotorVehicleOwnerModule,
     PostModule,
     AudioModule,
+    StressRunnerModule,
   ],
   controllers: [AppController],
   providers: [AppService, CronJobService],

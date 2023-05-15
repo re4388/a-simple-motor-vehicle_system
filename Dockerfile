@@ -1,8 +1,7 @@
 FROM node:14.16.1
 
-# install needed npm stuff
+# install needed global npm packages
 RUN npm i -g @nestjs/cli typescript ts-node
-
 
 # copy package.json into continaer
 COPY package*.json /tmp/app/
